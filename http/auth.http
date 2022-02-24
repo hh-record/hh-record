@@ -1,0 +1,8 @@
+###
+POST {{host_api}}/auth/google
+Content-Type: application/json
+
+{
+  "code": "4/0AX4XfWjHlA2-h41rRJBB46zO1MgOhV6B35tvVzAPMDndCxP_rx7aQ8s9bBr_6aq-4DvMRQ",
+  "redirectUri": "http://localhost:8888/login/oauth2/code/google"
+}

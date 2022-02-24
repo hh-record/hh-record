@@ -1,0 +1,80 @@
+### 회원가입
+POST {{host_api}}/hh-record-intro/sign-up
+Content-Type: application/json
+
+{
+  "id": "admin1",
+  "email": "test@naver.com",
+  "password": "1111",
+  "userName": "test",
+  "phoneNumber": "ssss"
+}
+
+### 로그인
+POST {{host_api}}/hh-record-intro/login
+Content-Type: application/json
+
+{
+  "id": "admin1",
+  "password": "1111"
+}
+> {%
+client.global.set('AUTH_TOKEN', response.body.data)
+client.log(client.global.get('AUTH_TOKEN'));
+ %}
+
+### my-page
+GET {{host_api}}/hh-record/my-page/
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}
+
+### my page 수정
+PUT {{host_api}}/hh-record/my-page/
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}
+
+{
+  "email": "test@naver.com",
+  "userName": "test",
+  "phoneNumber": "ssss"
+}
+
+### my page 삭제
+DELETE {{host_api}}/hh-record/my-page/
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}
+
+### 현재 비밀번호 확인
+POST {{host_api}}/hh-record/my-page/password-status
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}
+
+{
+  "password": "1111"
+}
+
+### 비밀번호 변경
+POST {{host_api}}/hh-record/my-page/password
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}
+
+{
+  "password" : "1111"
+}
+
+### 메일 보내기
+POST {{host_api}}/hh-record-intro/user-certification
+Content-Type: application/json
+
+{
+  "id": "admin1",
+  "email": "tnswh2023@naver.com"
+}
+
+### 메일 확인
+POST {{host_api}}/hh-record-intro/user-certification-check
+Content-Type: application/json
+
+{
+  "certificationNumber": "05564075"
+}

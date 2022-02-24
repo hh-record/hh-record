@@ -1,0 +1,27 @@
+stages:
+  - build
+  - deploy
+
+image: openjdk:11-jdk
+
+build:
+  stage: build
+  only:
+    - develop
+  before_script:
+    - chmod +x ./gradlew
+  script:
+    - ./gradlew build
+  artifacts:
+    paths:
+      - build/libs/*.jar
+    expire_in: 30 days
+
+deploy:
+  stage: deploy
+  only:
+    - develop
+  script:
+    - chmod 400 ./aws/hh-record-key.pem
+    - scp -o StrictHostKeyChecking=no -i ./aws/hh-record-key.pem ./build/libs/*.jar ec2-user@3.36.30.114:~/app/record-backend/jar/
+    - ssh -o StrictHostKeyChecking=no -i ./aws/hh-record-key.pem ec2-user@3.36.30.114 < ./deploy/deploy-dev.sh

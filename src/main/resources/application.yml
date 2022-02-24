@@ -1,0 +1,27 @@
+server:
+  port: 8888
+
+cloud:
+  aws:
+    s3:
+      bucket: hh-record-project
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+spring:
+  config:
+    activate:
+      on-profile: local, dev, local2
+    import:
+      - aws.yml
+      - google.yml
+      - email.yml
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local2
+    import:
+      - rds.yml

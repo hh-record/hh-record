@@ -1,0 +1,16 @@
+### 일기 리스트
+GET {{host_api}}/hh-record/records-main?search=ss&code=s
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}
+
+### 일기 생성
+POST {{host_api}}/hh-record/records-record
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}
+
+{
+  "thumbnailUrl": "sss",
+  "title": "title",
+  "content": "content",
+  "fileKey": "file"
+}

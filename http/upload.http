@@ -1,0 +1,9 @@
+### file upload
+POST {{host_api}}/hh-record/record-file
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="file"; filename="cat.jpg"
+
+< /Users/yusunjo/Desktop/test.jpeg
+--WebAppBoundary--
