@@ -1,4 +1,4 @@
-name: Deploy blog-admin
+name: Deploy hh-record
 
 on:
   push:
@@ -79,8 +79,8 @@ jobs:
       - name: ssh
         uses: appleboy/ssh-action@master
         with:
-          host: 115.71.238.146
-          username: root
+          host: 3.36.30.114
+          username: ec2-user
           key: ${{ secrets.AWS_PEM_KEY }}
           port: 22
           script: |
