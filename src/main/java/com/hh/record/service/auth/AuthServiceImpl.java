@@ -23,7 +23,7 @@ public class AuthServiceImpl implements AuthService{
         GoogleAccessTokenResponse googleAccessTokenResponse = googleApiCaller.tokenAuthentication(request.getCode(), request.getRedirectUri());
         GoogleMemberInfoResponse googleMemberInfo = googleApiCaller.getGoogleMemberInfo(googleAccessTokenResponse.getAccessToken());
         Member member = memberRepository.findByEmail(googleMemberInfo.getEmail())
-                .orElseGet(() -> memberRepository.save(Member.newMember(googleMemberInfo.getEmail())));
+                .orElseGet(() -> memberRepository.save(Member.newMember(googleMemberInfo.getEmail(), request.getProvider())));
         return jwtUtil.generateToken(member.getEmail(), member.getRoleSet());
     }
 

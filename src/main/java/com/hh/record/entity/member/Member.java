@@ -59,12 +59,12 @@ public class Member extends BaseEntity {
         this.password = password;
     }
 
-    public static Member newMember(String email) {
+    public static Member newMember(String email, MemberProvider provider) {
         return Member.builder()
                 .id(email)
                 .email(email)
                 .roleSet(Collections.singletonList(MemberRole.USER))
-                .provider(MemberProvider.GOOGLE)
+                .provider(provider)
                 .build();
     }
 

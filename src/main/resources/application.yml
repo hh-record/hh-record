@@ -22,6 +22,6 @@ spring:
 spring:
   config:
     activate:
-      on-profile: local2
+      on-profile: dev
     import:
       - rds.yml
