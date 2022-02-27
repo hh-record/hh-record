@@ -1,6 +1,6 @@
 package com.hh.record.dto.member.response;
 
-import com.hh.record.entity.Member;
+import com.hh.record.entity.member.Member;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

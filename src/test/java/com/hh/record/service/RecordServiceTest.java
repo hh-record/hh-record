@@ -3,8 +3,9 @@ package com.hh.record.service;
 import com.hh.record.dto.record.CreateRecordRequestDto;
 import com.hh.record.dto.record.RecordResponseDTO;
 import com.hh.record.dto.record.RecordSearchRequestDTO;
-import com.hh.record.entity.Member;
-import com.hh.record.entity.MemberRole;
+import com.hh.record.entity.member.Member;
+import com.hh.record.entity.member.MemberProvider;
+import com.hh.record.entity.member.MemberRole;
 import com.hh.record.entity.Record;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.repository.record.RecordRepository;
@@ -41,7 +42,7 @@ public class RecordServiceTest {
     @Test
     void retrieveRecord() {
         // given
-        Member member = new Member(null, "admin1", "admin1", "test@test.com", "1111", "01011112222", Collections.singletonList(MemberRole.USER));
+        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", Collections.singletonList(MemberRole.USER), MemberProvider.LOCAL);
         memberRepository.save(member);
 
         Record record1 = new Record(member, "sss", "title1", "content1");
@@ -60,7 +61,7 @@ public class RecordServiceTest {
     @Test
     void createRecord() {
         // given
-        Member member = new Member(null, "admin1", "admin1", "test@test.com", "1111", "01011112222", Collections.singletonList(MemberRole.USER));
+        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", Collections.singletonList(MemberRole.USER), MemberProvider.LOCAL);
         memberRepository.save(member);
 
         CreateRecordRequestDto requestDto = new CreateRecordRequestDto("thumbnailUrl", "title", "content", "fileKey");

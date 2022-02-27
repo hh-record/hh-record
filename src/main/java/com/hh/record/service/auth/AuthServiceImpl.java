@@ -3,7 +3,7 @@ package com.hh.record.service.auth;
 import com.hh.record.dto.auth.AuthRequest;
 import com.hh.record.dto.auth.response.GoogleAccessTokenResponse;
 import com.hh.record.dto.auth.response.GoogleMemberInfoResponse;
-import com.hh.record.entity.Member;
+import com.hh.record.entity.member.Member;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.security.util.JWTUtil;
 import com.hh.record.service.auth.google.GoogleApiCaller;

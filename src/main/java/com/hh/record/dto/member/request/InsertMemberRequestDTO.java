@@ -1,7 +1,8 @@
 package com.hh.record.dto.member.request;
 
-import com.hh.record.entity.Member;
-import com.hh.record.entity.MemberRole;
+import com.hh.record.entity.member.Member;
+import com.hh.record.entity.member.MemberProvider;
+import com.hh.record.entity.member.MemberRole;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +44,7 @@ public class InsertMemberRequestDTO {
                 .phoneNumber(phoneNumber)
                 .password(encodedPassword)
                 .roleSet(Collections.singletonList(MemberRole.USER))
+                .provider(MemberProvider.LOCAL)
                 .build();
     }
 

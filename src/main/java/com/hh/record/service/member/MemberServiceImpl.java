@@ -6,7 +6,7 @@ import com.hh.record.dto.certification.CertificationRequestDTO;
 import com.hh.record.dto.member.request.SelectMemberIdRequestDTO;
 import com.hh.record.dto.member.request.UpdateMemberRequestDTO;
 import com.hh.record.dto.member.response.MemberInfoResponse;
-import com.hh.record.entity.Member;
+import com.hh.record.entity.member.Member;
 import com.hh.record.dto.member.request.InsertMemberRequestDTO;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.security.util.JWTUtil;

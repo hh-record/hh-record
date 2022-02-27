@@ -1,7 +1,8 @@
 package com.hh.record.service;
 
-import com.hh.record.entity.Member;
-import com.hh.record.entity.MemberRole;
+import com.hh.record.entity.member.Member;
+import com.hh.record.entity.member.MemberProvider;
+import com.hh.record.entity.member.MemberRole;
 import com.hh.record.config.exception.errorCode.ValidationException;
 import com.hh.record.dto.member.request.InsertMemberRequestDTO;
 import com.hh.record.repository.member.MemberRepository;
@@ -51,7 +52,7 @@ public class MemberServiceTest {
     @DisplayName("이미 존재하는 아이디이면 예외처리")
     void memberSignUp2() {
         // given
-        Member member = new Member(0L, "admin1", "admin1", "test@test.com", "1111", "01011112222",Collections.singletonList(MemberRole.USER));
+        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", Collections.singletonList(MemberRole.USER), MemberProvider.LOCAL);
         memberRepository.save(member);
         InsertMemberRequestDTO request = InsertMemberRequestDTO.testInstance("admin1", "admin1", "test@test.com", "2234", "1111");
 

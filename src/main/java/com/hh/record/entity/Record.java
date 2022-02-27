@@ -1,5 +1,6 @@
 package com.hh.record.entity;
 
+import com.hh.record.entity.member.Member;
 import lombok.*;
 
 import javax.persistence.*;

@@ -5,6 +5,7 @@ import com.hh.record.config.interceptor.MemberId;
 import com.hh.record.controller.ApiResponse;
 import com.hh.record.dto.member.MemberPasswordDTO;
 import com.hh.record.dto.member.request.UpdateMemberRequestDTO;
+import com.hh.record.dto.member.response.MemberInfoResponse;
 import com.hh.record.service.member.MemberService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class MyPageController {
     @ApiOperation("내 정보 불러오기")
     @Auth
     @GetMapping(value = "/", produces = "application/json")
-    public ApiResponse<Object> selectOneMember(@MemberId Long memberId) {
+    public ApiResponse<MemberInfoResponse> selectOneMember(@MemberId Long memberId) {
         return ApiResponse.success(memberService.selectMemberDTO(memberId));
     }
 

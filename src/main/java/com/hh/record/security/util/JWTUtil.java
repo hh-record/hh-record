@@ -1,6 +1,6 @@
 package com.hh.record.security.util;
 
-import com.hh.record.entity.MemberRole;
+import com.hh.record.entity.member.MemberRole;
 import io.jsonwebtoken.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;

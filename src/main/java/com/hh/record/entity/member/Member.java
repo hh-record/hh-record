@@ -1,5 +1,6 @@
-package com.hh.record.entity;
+package com.hh.record.entity.member;
 
+import com.hh.record.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,19 +31,23 @@ public class Member extends BaseEntity {
 
     private String phoneNumber;
 
+    @ElementCollection(fetch = FetchType.LAZY)
+    @Builder.Default
+    private List<MemberRole> roleSet = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    private MemberProvider provider;
+
     @Builder
-    public Member(String id, String userName, String email, String password, String phoneNumber, List<MemberRole> roleSet) {
+    public Member(String id, String userName, String email, String password, String phoneNumber, List<MemberRole> roleSet, MemberProvider provider) {
         this.id = id;
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
         this.roleSet = roleSet;
+        this.provider = provider;
     }
-
-    @ElementCollection(fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<MemberRole> roleSet = new ArrayList<>();
 
     public void changeMemberInfo(String userName, String email, String phoneNumber) {
         this.userName = userName;
@@ -56,8 +61,10 @@ public class Member extends BaseEntity {
 
     public static Member newMember(String email) {
         return Member.builder()
+                .id(email)
                 .email(email)
                 .roleSet(Collections.singletonList(MemberRole.USER))
+                .provider(MemberProvider.GOOGLE)
                 .build();
     }
 

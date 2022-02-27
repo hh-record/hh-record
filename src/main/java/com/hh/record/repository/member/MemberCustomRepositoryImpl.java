@@ -1,14 +1,12 @@
 package com.hh.record.repository.member;
 
-import com.hh.record.entity.Member;
-import com.hh.record.entity.QMember;
+import com.hh.record.entity.member.Member;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
-import static com.hh.record.entity.QMember.*;
-import static com.hh.record.entity.QMember.member;
+import static com.hh.record.entity.member.QMember.member;
 
 @RequiredArgsConstructor
 public class MemberCustomRepositoryImpl implements MemberCustomRepository{

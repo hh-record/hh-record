@@ -1,6 +1,6 @@
 package com.hh.record.repository.member;
 
-import com.hh.record.entity.Member;
+import com.hh.record.entity.member.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -2,7 +2,7 @@ package com.hh.record.config.interceptor;
 
 import com.hh.record.config.exception.errorCode.NotFoundException;
 import com.hh.record.config.exception.errorCode.ValidationException;
-import com.hh.record.entity.Member;
+import com.hh.record.entity.member.Member;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.security.util.JWTUtil;
 import lombok.RequiredArgsConstructor;

@@ -5,18 +5,15 @@ import com.hh.record.dto.record.CreateRecordRequestDto;
 import com.hh.record.dto.record.RecordResponseDTO;
 import com.hh.record.dto.record.RecordSearchRequestDTO;
 import com.hh.record.dto.record.RecordUpdateRequestDTO;
-import com.hh.record.entity.Member;
+import com.hh.record.entity.member.Member;
 import com.hh.record.entity.Record;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.repository.record.RecordRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
