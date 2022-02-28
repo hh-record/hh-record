@@ -3,7 +3,7 @@ POST {{host_api}}/auth/google
 Content-Type: application/json
 
 {
-  "code": "4/0AX4XfWh-MkxxXr226OWVPfxzaAxq_DDBg9SydhSkj2XgtinRq6Z_pmNZXcJDjb2kgURnLw",
+  "code": "4/0AX4XfWh2qcao9u1M1Wc1GF028T6H0pDZEBojfeZoZ4IxgrPr-iXxi6mODcWhjUfV_VNU4Q",
   "redirectUri": "http://localhost:8888/login/oauth2/code/google",
   "provider": "GOOGLE"
 }

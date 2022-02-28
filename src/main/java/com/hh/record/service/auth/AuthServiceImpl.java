@@ -1,29 +1,27 @@
 package com.hh.record.service.auth;
 
 import com.hh.record.dto.auth.AuthRequest;
-import com.hh.record.dto.auth.response.GoogleAccessTokenResponse;
 import com.hh.record.dto.auth.response.GoogleMemberInfoResponse;
 import com.hh.record.entity.member.Member;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.security.util.JWTUtil;
-import com.hh.record.service.auth.google.GoogleApiCaller;
+import com.hh.record.service.auth.google.GoogleClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class AuthServiceImpl implements AuthService{
+public class AuthServiceImpl implements AuthService {
 
-    private final GoogleApiCaller googleApiCaller;
     private final MemberRepository memberRepository;
     private final JWTUtil jwtUtil;
+    private final GoogleClient googleClient;
 
     @Override
     public String googleAuthentication(AuthRequest request) {
-        GoogleAccessTokenResponse googleAccessTokenResponse = googleApiCaller.tokenAuthentication(request.getCode(), request.getRedirectUri());
-        GoogleMemberInfoResponse googleMemberInfo = googleApiCaller.getGoogleMemberInfo(googleAccessTokenResponse.getAccessToken());
-        Member member = memberRepository.findByEmail(googleMemberInfo.getEmail())
-                .orElseGet(() -> memberRepository.save(Member.newMember(googleMemberInfo.getEmail(), request.getProvider())));
+        GoogleMemberInfoResponse googleMemberInfoResponse = googleClient.googleAuth(request.getCode(), request.getRedirectUri());
+        Member member = memberRepository.findByEmail(googleMemberInfoResponse.getEmail())
+                .orElseGet(() -> memberRepository.save(Member.newMember(googleMemberInfoResponse, request.getProvider())));
         return jwtUtil.generateToken(member.getEmail(), member.getRoleSet());
     }
 

@@ -41,3 +41,12 @@ cloud:
     credentials:
       accessKey: aaa
       secretKey: aaa
+
+google:
+  auth:
+    client_id: a
+    client_secret: a
+    grant_type: a
+    base_url: a
+    token_url: a
+    profile_url: a
