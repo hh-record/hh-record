@@ -14,11 +14,14 @@ public class GoogleMemberInfoResponse {
 
     private String picture;
 
+    private String name;
+
     @Builder
-    public GoogleMemberInfoResponse(String id, String email, String picture) {
+    public GoogleMemberInfoResponse(String id, String email, String picture, String name) {
         this.id = id;
         this.email = email;
         this.picture = picture;
+        this.name = name;
     }
 
 }

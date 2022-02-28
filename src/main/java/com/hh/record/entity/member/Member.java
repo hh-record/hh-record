@@ -1,5 +1,6 @@
 package com.hh.record.entity.member;
 
+import com.hh.record.dto.auth.response.GoogleMemberInfoResponse;
 import com.hh.record.entity.BaseEntity;
 import lombok.*;
 
@@ -59,10 +60,11 @@ public class Member extends BaseEntity {
         this.password = password;
     }
 
-    public static Member newMember(String email, MemberProvider provider) {
+    public static Member newMember(GoogleMemberInfoResponse memberInfoResponse, MemberProvider provider) {
         return Member.builder()
-                .id(email)
-                .email(email)
+                .id(memberInfoResponse.getEmail())
+                .email(memberInfoResponse.getEmail())
+                .userName(memberInfoResponse.getName())
                 .roleSet(Collections.singletonList(MemberRole.USER))
                 .provider(provider)
                 .build();

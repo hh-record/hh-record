@@ -11,9 +11,9 @@ public class GoogleAuthComponent {
 
     private String clientId;
     private String clientSecret;
-    private String secretKey;
     private String grantType;
-    private String url;
-    private String userInfoUrl;
+    private String baseUrl;
+    private String tokenUrl;
+    private String profileUrl;
 
 }
