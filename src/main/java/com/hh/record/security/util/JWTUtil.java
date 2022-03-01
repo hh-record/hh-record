@@ -10,7 +10,6 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.time.ZonedDateTime;
 import java.util.Date;
-import java.util.List;
 
 @Log4j2
 @Component
@@ -21,7 +20,7 @@ public class JWTUtil {
     private final static long JWT_TOKEN_VALIDITY = 1000L * 60 * 60 * 24 * 365;
 
     // 토큰 정보 생성
-    public String generateToken(String id, List<MemberRole> roleSet) {
+    public String generateToken(String id, MemberRole roleSet) {
         Claims claims = Jwts.claims().setSubject(id);
         claims.put("roles", roleSet);
 

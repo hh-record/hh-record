@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import java.util.Collections;
 
 
 @Getter
@@ -43,7 +42,7 @@ public class InsertMemberRequestDTO {
                 .userName(userName)
                 .phoneNumber(phoneNumber)
                 .password(encodedPassword)
-                .roleSet(Collections.singletonList(MemberRole.USER))
+                .roleSet(MemberRole.USER)
                 .provider(MemberProvider.LOCAL)
                 .build();
     }

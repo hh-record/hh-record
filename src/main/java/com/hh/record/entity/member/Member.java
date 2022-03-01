@@ -5,9 +5,6 @@ import com.hh.record.entity.BaseEntity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 @Entity
 @AllArgsConstructor
@@ -32,15 +29,14 @@ public class Member extends BaseEntity {
 
     private String phoneNumber;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @Builder.Default
-    private List<MemberRole> roleSet = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    private MemberRole roleSet;
 
     @Enumerated(EnumType.STRING)
     private MemberProvider provider;
 
     @Builder
-    public Member(String id, String userName, String email, String password, String phoneNumber, List<MemberRole> roleSet, MemberProvider provider) {
+    public Member(String id, String userName, String email, String password, String phoneNumber, MemberRole roleSet, MemberProvider provider) {
         this.id = id;
         this.userName = userName;
         this.email = email;
@@ -65,7 +61,7 @@ public class Member extends BaseEntity {
                 .id(memberInfoResponse.getEmail())
                 .email(memberInfoResponse.getEmail())
                 .userName(memberInfoResponse.getName())
-                .roleSet(Collections.singletonList(MemberRole.USER))
+                .roleSet(MemberRole.USER)
                 .provider(provider)
                 .build();
     }

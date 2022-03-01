@@ -4,7 +4,7 @@ Content-Type: application/json
 AUTH_TOKEN: {{AUTH_TOKEN}}
 
 ### 일기 생성
-POST {{dev_api}}/hh-record/records
+POST {{host_api}}/hh-record/records
 Content-Type: application/json
 AUTH_TOKEN: {{AUTH_TOKEN}}
 

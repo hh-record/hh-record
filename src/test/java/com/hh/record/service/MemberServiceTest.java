@@ -13,7 +13,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,7 +51,7 @@ public class MemberServiceTest {
     @DisplayName("이미 존재하는 아이디이면 예외처리")
     void memberSignUp2() {
         // given
-        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", Collections.singletonList(MemberRole.USER), MemberProvider.LOCAL);
+        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
         memberRepository.save(member);
         InsertMemberRequestDTO request = InsertMemberRequestDTO.testInstance("admin1", "admin1", "test@test.com", "2234", "1111");
 

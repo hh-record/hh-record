@@ -16,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.*;
@@ -42,7 +41,7 @@ public class RecordServiceTest {
     @Test
     void retrieveRecord() {
         // given
-        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", Collections.singletonList(MemberRole.USER), MemberProvider.LOCAL);
+        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
         memberRepository.save(member);
 
         Record record1 = new Record(member, "sss", "title1", "content1");
@@ -61,7 +60,7 @@ public class RecordServiceTest {
     @Test
     void createRecord() {
         // given
-        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", Collections.singletonList(MemberRole.USER), MemberProvider.LOCAL);
+        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
         memberRepository.save(member);
 
         CreateRecordRequestDto requestDto = new CreateRecordRequestDto("thumbnailUrl", "title", "content", "fileKey");
