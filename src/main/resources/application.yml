@@ -9,19 +9,18 @@ cloud:
       static: ap-northeast-2
     stack:
       auto: false
-spring:
-  config:
-    activate:
-      on-profile: local, dev, local2
-    import:
-      - aws.yml
-      - google.yml
-      - email.yml
 
 ---
 spring:
-  config:
-    activate:
-      on-profile: dev
-    import:
-      - rds.yml
+  profiles:
+    active: local, dev, local2
+    include:
+      - aws
+      - google
+      - email
+
+---
+spring:
+  profiles:
+    active: dev
+    include: rds
