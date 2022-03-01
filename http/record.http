@@ -14,3 +14,8 @@ AUTH_TOKEN: {{AUTH_TOKEN}}
   "content": "content",
   "fileKey": "file"
 }
+
+### 일기 상세보기
+POST {{dev_api}}/hh-record/records/4
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}

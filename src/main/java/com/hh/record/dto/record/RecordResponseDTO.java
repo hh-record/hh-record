@@ -24,16 +24,17 @@ public class RecordResponseDTO {
 
     private String fileUrl;
 
-    public static RecordResponseDTO of(Record record) {
-        String baseUrl = "https://hh-record-project.s3.ap-northeast-2.amazonaws.com/";
+    private String thumbnailUrl;
 
+    public static RecordResponseDTO of(Record record) {
         return RecordResponseDTO.builder()
                 .record_seq(record.getSeq())
+                .thumbnailUrl(record.getThumbnailUrl())
                 .title(record.getTitle())
                 .content(record.getContent())
                 .regDate(record.getRegDate().toString())
                 .modDate(record.getModDate().toString())
-                .fileUrl(record.getFile() == null ? null : baseUrl + record.getFile().getFileKey())
+                .fileUrl(record.getFile() == null ? null : record.getFile().getFileKey())
                 .build();
     }
 
