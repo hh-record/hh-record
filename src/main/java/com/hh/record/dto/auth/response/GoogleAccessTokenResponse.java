@@ -25,4 +25,8 @@ public class GoogleAccessTokenResponse {
         this.idToken = idToken;
     }
 
+    public static GoogleAccessTokenResponse testInstance(String accessToken, String refreshToken, String expiresIn, String idToken) {
+        return new GoogleAccessTokenResponse(accessToken, refreshToken, expiresIn, idToken);
+    }
+
 }

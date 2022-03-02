@@ -16,7 +16,7 @@ public class Record extends BaseEntity {
     private Long seq;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_seq")
+    @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name="record_member_fk"))
     private Member member;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)

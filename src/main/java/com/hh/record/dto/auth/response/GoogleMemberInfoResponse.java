@@ -24,4 +24,8 @@ public class GoogleMemberInfoResponse {
         this.name = name;
     }
 
+    public static GoogleMemberInfoResponse testInstance(String id, String email, String picture, String name) {
+        return new GoogleMemberInfoResponse(id, email, picture, name);
+    }
+
 }

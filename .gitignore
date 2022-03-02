@@ -40,8 +40,9 @@ aws.yml
 google.yml
 rds.yml
 email.yml
-application-aws.yml
-application-email.yml
-application-google.yml
-application-rds.yml
+application-aws.*
+application-email.*
+application-google.*
+application-rds.*
+
 

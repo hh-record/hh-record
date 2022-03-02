@@ -17,7 +17,7 @@ public class File extends BaseEntity {
     private Long seq;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "record_seq")
+    @JoinColumn(name = "record_seq", foreignKey = @ForeignKey(name="file_record_fk"))
     private Record record;
 
     private String fileKey;

@@ -18,4 +18,8 @@ public class AuthRequest {
         this.provider = provider;
     }
 
+    public static AuthRequest testInstance(String code, String redirectUri, MemberProvider provider) {
+        return new AuthRequest(code, redirectUri, provider);
+    }
+
 }
