@@ -12,10 +12,30 @@ AUTH_TOKEN: {{AUTH_TOKEN}}
   "thumbnailUrl": "sss",
   "title": "title",
   "content": "content",
-  "fileKey": "file"
+  "fileList": ["file1", "file2"]
+}
+
+### 일기 수정
+PUT {{host_api}}/hh-record/records/1
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}
+
+{
+  "thumbnailUrl": "sss",
+  "title": "title",
+  "content": "content"
+}
+
+### 일기 파일 수정
+PUT {{host_api}}/hh-record/records/file/1
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}
+
+{
+  "fileList": ["changeFile1", "changeFile2"]
 }
 
 ### 일기 상세보기
-POST {{dev_api}}/hh-record/records/4
+POST {{host_api}}/hh-record/records/1
 Content-Type: application/json
 AUTH_TOKEN: {{AUTH_TOKEN}}

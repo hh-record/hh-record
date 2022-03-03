@@ -1,10 +1,14 @@
 package com.hh.record.dto.record;
 
+import com.hh.record.entity.File;
 import com.hh.record.entity.Record;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -22,7 +26,7 @@ public class RecordResponseDTO {
 
     private String modDate;
 
-    private String fileUrl;
+    private List<String> fileUrl;
 
     private String thumbnailUrl;
 
@@ -34,7 +38,7 @@ public class RecordResponseDTO {
                 .content(record.getContent())
                 .regDate(record.getRegDate().toString())
                 .modDate(record.getModDate().toString())
-                .fileUrl(record.getFile() == null ? null : record.getFile().getFileKey())
+                .fileUrl(record.getFileList().stream().map(File::getFileKey).collect(Collectors.toList()))
                 .build();
     }
 

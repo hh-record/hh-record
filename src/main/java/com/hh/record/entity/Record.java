@@ -4,6 +4,9 @@ import com.hh.record.entity.member.Member;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
@@ -19,8 +22,8 @@ public class Record extends BaseEntity {
     @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name="record_member_fk"))
     private Member member;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
-    private File file;
+    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<File> fileList = new ArrayList<>();
 
     private String thumbnailUrl;
 
@@ -37,15 +40,21 @@ public class Record extends BaseEntity {
         this.content = content;
     }
 
-    public void addFile(String fileKey) {
-        this.file = File.of(this, fileKey);
+    public void addFile(List<String> fileList) {
+        List<File> fileEntityList = fileList.stream().map(file -> File.of(this, file)).collect(Collectors.toList());
+        this.fileList.addAll(fileEntityList);
     }
 
     public void changeRecord(String title, String content, String fileUrl) {
         this.title = title;
         this.content = content;
         this.thumbnailUrl = fileUrl;
-        file.changeFile(fileUrl);
+    }
+
+    public void changeFile(List<String> fileList) {
+        List<File> fileEntityList = fileList.stream().map(file -> File.of(this, file)).collect(Collectors.toList());
+        this.fileList.clear();
+        this.fileList.addAll(fileEntityList);
     }
 
 }

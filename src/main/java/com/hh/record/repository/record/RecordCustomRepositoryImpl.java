@@ -6,6 +6,9 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
+
+import static com.hh.record.entity.QFile.*;
 import static com.hh.record.entity.QRecord.record;
 
 @RequiredArgsConstructor
@@ -17,11 +20,25 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
     public List<Record> retrieveRecord(Long memberId, String code, String search) {
         BooleanBuilder booleanBuilder = searchBuilder(code, search);
         return jpaQueryFactory.selectFrom(record)
+                .leftJoin(record.fileList, file).fetchJoin()
                 .where(
                         record.member.seq.eq(memberId).and(booleanBuilder)
                 )
                 .orderBy(record.seq.desc())
                 .fetch();
+    }
+
+    @Override
+    public Optional<Record> findByMember_SeqAndSeq(Long memberId, Long recordId) {
+        return Optional.ofNullable(
+                jpaQueryFactory.selectFrom(record)
+                        .leftJoin(record.fileList, file).fetchJoin()
+                        .where(
+                                record.member.seq.eq(memberId),
+                                record.seq.eq(recordId)
+                        )
+                        .fetchOne()
+        );
     }
 
     private BooleanBuilder searchBuilder(String code, String search) {
@@ -34,4 +51,5 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
         }
         return booleanBuilder;
     }
+
 }

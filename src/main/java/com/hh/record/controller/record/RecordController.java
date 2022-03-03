@@ -3,10 +3,7 @@ package com.hh.record.controller.record;
 import com.hh.record.config.interceptor.Auth;
 import com.hh.record.config.interceptor.MemberId;
 import com.hh.record.controller.ApiResponse;
-import com.hh.record.dto.record.CreateRecordRequestDto;
-import com.hh.record.dto.record.RecordResponseDTO;
-import com.hh.record.dto.record.RecordSearchRequestDTO;
-import com.hh.record.dto.record.RecordUpdateRequestDTO;
+import com.hh.record.dto.record.*;
 import com.hh.record.service.record.RecordService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -55,6 +52,14 @@ public class RecordController {
     public ApiResponse<Long> updateRecord(@MemberId Long memberId, @PathVariable("recordId") Long recordId,
                                           @RequestBody RecordUpdateRequestDTO requestDTO) {
         return ApiResponse.success(recordService.updateRecord(memberId, recordId, requestDTO));
+    }
+
+    @ApiOperation("일기 이미지 수정")
+    @Auth
+    @PutMapping(value = "/records/file/{recordId}", produces = "application/json")
+    public ApiResponse<RecordResponseDTO> updateRecordFile(@MemberId Long memberId, @PathVariable("recordId") Long recordId,
+                                          @RequestBody RecordUpdateFileRequestDto requestDto) {
+        return ApiResponse.success(recordService.updateRecordFile(memberId, recordId, requestDto.getFileList()));
     }
 
     @ApiOperation("일기 삭제")

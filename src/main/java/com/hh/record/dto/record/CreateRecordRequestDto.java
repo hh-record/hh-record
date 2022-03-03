@@ -5,6 +5,9 @@ import com.hh.record.entity.Record;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 public class CreateRecordRequestDto {
@@ -15,17 +18,17 @@ public class CreateRecordRequestDto {
 
     private String content;
 
-    private String fileKey;
+    private List<String> fileList = new ArrayList<>();
 
-    public CreateRecordRequestDto(String thumbnailUrl, String title, String content, String fileKey) {
+    public CreateRecordRequestDto(String thumbnailUrl, String title, String content, List<String> fileList) {
         this.thumbnailUrl = thumbnailUrl;
         this.title = title;
         this.content = content;
-        this.fileKey = fileKey;
+        this.fileList = fileList;
     }
 
-    public static CreateRecordRequestDto testInstance(String thumbnailUrl, String title, String content, String fileKey) {
-        return new CreateRecordRequestDto(thumbnailUrl, title, content, fileKey);
+    public static CreateRecordRequestDto testInstance(String thumbnailUrl, String title, String content, List<String> fileList) {
+        return new CreateRecordRequestDto(thumbnailUrl, title, content, fileList);
     }
 
     public Record dtoToEntity(Member member) {

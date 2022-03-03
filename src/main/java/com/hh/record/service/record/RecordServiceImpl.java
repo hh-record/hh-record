@@ -36,7 +36,7 @@ public class RecordServiceImpl implements RecordService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new NotFoundException(String.format("존재하지 않는 멤버 %s 입니다.", memberId)));
         Record record = recordRepository.save(requestDto.dtoToEntity(member));
-        record.addFile(requestDto.getFileKey());
+        record.addFile(requestDto.getFileList());
         return RecordResponseDTO.of(record);
     }
 
@@ -60,6 +60,15 @@ public class RecordServiceImpl implements RecordService {
                 .orElseThrow(() -> new NotFoundException("일기가 존재하지 않습니다."));
         record.changeRecord(requestDTO.getTitle(), requestDTO.getContent(), requestDTO.getThumbnailUrl());
         return record.getSeq();
+    }
+
+    @Transactional
+    @Override
+    public RecordResponseDTO updateRecordFile(Long memberId, Long recordId, List<String> fileList) {
+        Record record = recordRepository.findByMember_SeqAndSeq(memberId, recordId)
+                .orElseThrow(() -> new NotFoundException("일기가 존재하지 않습니다."));
+        record.changeFile(fileList);
+        return RecordResponseDTO.of(record);
     }
 
     @Transactional

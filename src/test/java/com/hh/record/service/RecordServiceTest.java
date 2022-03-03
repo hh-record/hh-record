@@ -3,10 +3,12 @@ package com.hh.record.service;
 import com.hh.record.dto.record.CreateRecordRequestDto;
 import com.hh.record.dto.record.RecordResponseDTO;
 import com.hh.record.dto.record.RecordSearchRequestDTO;
+import com.hh.record.entity.File;
 import com.hh.record.entity.member.Member;
 import com.hh.record.entity.member.MemberProvider;
 import com.hh.record.entity.member.MemberRole;
 import com.hh.record.entity.Record;
+import com.hh.record.repository.FileRepository;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.repository.record.RecordRepository;
 import com.hh.record.service.record.RecordService;
@@ -32,10 +34,14 @@ public class RecordServiceTest {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private FileRepository fileRepository;
+
     @AfterEach
     void clean() {
         recordRepository.deleteAll();
         memberRepository.deleteAll();
+        fileRepository.deleteAll();
     }
 
     @Test
@@ -63,7 +69,8 @@ public class RecordServiceTest {
         Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
         memberRepository.save(member);
 
-        CreateRecordRequestDto requestDto = new CreateRecordRequestDto("thumbnailUrl", "title", "content", "fileKey");
+        List<String> files = Arrays.asList("file1", "file2");
+        CreateRecordRequestDto requestDto = new CreateRecordRequestDto("thumbnailUrl", "title", "content", files);
 
         // when
         recordService.createRecord(member.getSeq(), requestDto);
@@ -72,6 +79,8 @@ public class RecordServiceTest {
         List<Record> recordList = recordRepository.findAll();
         assertThat(recordList.get(0).getContent()).isEqualTo(requestDto.getContent());
         assertThat(recordList.get(0).getTitle()).isEqualTo(requestDto.getTitle());
+        List<File> fileList = fileRepository.findAll();
+        assertThat(fileList).hasSize(2);
     }
 
 }

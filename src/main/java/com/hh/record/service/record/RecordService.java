@@ -21,4 +21,6 @@ public interface RecordService {
 
     Long deleteRecord(Long memberId, Long recordId);
 
+    RecordResponseDTO updateRecordFile(Long memberId, Long recordId, List<String> fileList);
+
 }
