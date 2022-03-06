@@ -27,6 +27,7 @@ jobs:
         run: |
           echo $RESOURCE_FILE
           echo "cloud.aws.credentials.access_key=$AWS_CREDENTIALS_ACCESS_KEY\ncloud.aws.credentials.secret_key=$AWS_CREDENTIALS_SECRET_KEY" > $RESOURCE_FILE/application-aws.properties
+          cat $RESOURCE_FILE/application-aws.properties
 
       - name: Create email.yml file
         env:
@@ -34,6 +35,7 @@ jobs:
           MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
         run: |
           echo "spring.mail.username=$MAIL_USERNAME\nspring.mail.password=$MAIL_PASSWORD" > $RESOURCE_FILE/application-email.properties
+          cat $RESOURCE_FILE/application-email.properties
 
       - name: Create google.yml file
         env:
@@ -41,6 +43,7 @@ jobs:
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         run: |
           echo "google.auth.client_id=$CLIENT_ID\ngoogle.auth.client_secret=$CLIENT_SECRET\ngoogle.auth.grant_type=authorization_code\ngoogle.auth.url=https://accounts.google.com/o/oauth2/token\ngoogle.auth.user_info_url=https://www.googleapis.com/oauth2/v2/userinfo" > $RESOURCE_FILE/application-google.properties
+          cat $RESOURCE_FILE/application-google.properties
 
       - name: Create rds.yml file
         env:
@@ -49,6 +52,10 @@ jobs:
           DB_PASSWORD: ${{ secrets.PASSWORD }}
         run: |
           echo "spring.datasource.url=$URL\nspring.datasource.username=$DB_USERNAME\nspring.datasource.password=$DB_PASSWORD" > $RESOURCE_FILE/application-rds.properties
+          cat $RESOURCE_FILE/application-aws.properties
+          cat $RESOURCE_FILE/application-email.properties
+          cat $RESOURCE_FILE/application-google.properties
+          cat $RESOURCE_FILE/application-rds.properties
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
