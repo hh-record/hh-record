@@ -1,9 +1,6 @@
 package com.hh.record.service.record;
 
-import com.hh.record.dto.record.CreateRecordRequestDto;
-import com.hh.record.dto.record.RecordResponseDTO;
-import com.hh.record.dto.record.RecordSearchRequestDTO;
-import com.hh.record.dto.record.RecordUpdateRequestDTO;
+import com.hh.record.dto.record.*;
 
 import java.util.List;
 
@@ -13,7 +10,7 @@ public interface RecordService {
 
     RecordResponseDTO createRecord(Long memberId, CreateRecordRequestDto requestDto);
 
-    List<RecordResponseDTO> selectRecord(Long memberId);
+    List<RecordResponseDTO> selectRecord(Long memberId, RecordCalendarRequestDTO requestDTO);
 
     RecordResponseDTO selectOneRecord(Long memberId, Long recordId);
 

@@ -1,10 +1,7 @@
 package com.hh.record.service.record;
 
 import com.hh.record.config.exception.errorCode.NotFoundException;
-import com.hh.record.dto.record.CreateRecordRequestDto;
-import com.hh.record.dto.record.RecordResponseDTO;
-import com.hh.record.dto.record.RecordSearchRequestDTO;
-import com.hh.record.dto.record.RecordUpdateRequestDTO;
+import com.hh.record.dto.record.*;
 import com.hh.record.entity.member.Member;
 import com.hh.record.entity.Record;
 import com.hh.record.repository.member.MemberRepository;
@@ -41,8 +38,8 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<RecordResponseDTO> selectRecord(Long memberId) {
-        return recordRepository.findAllByMember_Seq(memberId)
+    public List<RecordResponseDTO> selectRecord(Long memberId, RecordCalendarRequestDTO requestDTO) {
+        return recordRepository.findAllByDates(memberId, requestDTO.getYear(), requestDTO.getMonth())
                 .stream().map(RecordResponseDTO::of).collect(Collectors.toList());
     }
 

@@ -11,4 +11,6 @@ public interface RecordCustomRepository {
 
     Optional<Record> findByMember_SeqAndSeq(Long memberId, Long recordId);
 
+    List<Record> findAllByDates(Long memberId, int year, int month);
+
 }
