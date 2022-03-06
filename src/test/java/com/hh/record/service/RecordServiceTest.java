@@ -52,9 +52,10 @@ public class RecordServiceTest {
 
         Record record1 = new Record(member, "sss", "title1", "content1");
         Record record2 = new Record(member, "sss", "title2", "content2");
+        record2.addFile(Arrays.asList("c", "d"));
         recordRepository.saveAll(Arrays.asList(record1, record2));
 
-        RecordSearchRequestDTO requestDTO = new RecordSearchRequestDTO(null, null);
+        RecordSearchRequestDTO requestDTO = new RecordSearchRequestDTO(null, null, null);
 
         // when
         List<RecordResponseDTO> responseDTOList = recordService.retrieveRecord(member.getSeq(), requestDTO);
