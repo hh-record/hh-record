@@ -23,8 +23,8 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
     @Override
     public List<Record> retrieveRecord(Long memberId, String code, String search, LocalDate date) {
         BooleanBuilder booleanBuilder = searchBuilder(code, search);
-        return jpaQueryFactory.selectFrom(record)
-//                .leftJoin(record.fileList, file).fetchJoin()
+        return jpaQueryFactory.selectFrom(record).distinct()
+                .leftJoin(record.fileList, file).fetchJoin()
                 .where(
                         record.member.seq.eq(memberId).and(booleanBuilder),
                         eqDate(date)
@@ -37,7 +37,7 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
     public Optional<Record> findByMember_SeqAndSeq(Long memberId, Long recordId) {
         return Optional.ofNullable(
                 jpaQueryFactory.selectFrom(record)
-//                        .leftJoin(record.fileList, file).fetchJoin()
+                        .leftJoin(record.fileList, file).fetchJoin()
                         .where(
                                 record.member.seq.eq(memberId),
                                 record.seq.eq(recordId)
