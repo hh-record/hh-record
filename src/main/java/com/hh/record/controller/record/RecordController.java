@@ -28,8 +28,8 @@ public class RecordController {
     @ApiOperation("달력 일기 목록 조회")
     @Auth
     @GetMapping("/records-calendar")
-    public ApiResponse<List<RecordResponseDTO>> selectRecord(@MemberId Long memberId) {
-        return ApiResponse.success(recordService.selectRecord(memberId));
+    public ApiResponse<List<RecordResponseDTO>> selectRecord(@MemberId Long memberId, RecordCalendarRequestDTO requestDTO) {
+        return ApiResponse.success(recordService.selectRecord(memberId, requestDTO));
     }
 
     @ApiOperation("일기 생성")

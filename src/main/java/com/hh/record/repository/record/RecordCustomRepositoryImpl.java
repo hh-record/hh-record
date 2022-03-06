@@ -5,6 +5,8 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,6 +41,17 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
                         )
                         .fetchOne()
         );
+    }
+
+    @Override
+    public List<Record> findAllByDates(Long memberId, int year, int month) {
+        LocalDateTime searchStartDate = LocalDateTime.of(year, month, 1, 0, 0);
+        LocalDateTime searchEndDate = LocalDateTime.of(year, month + 1, 1, 0, 0);
+
+        return jpaQueryFactory
+                .selectFrom(record)
+                .where(record.regDate.between(searchStartDate, searchEndDate))
+                .fetch();
     }
 
     private BooleanBuilder searchBuilder(String code, String search) {
