@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -28,7 +29,7 @@ public class RecordController {
     @ApiOperation("달력 일기 목록 조회")
     @Auth
     @GetMapping("/records-calendar")
-    public ApiResponse<List<RecordResponseDTO>> selectRecord(@MemberId Long memberId, RecordCalendarRequestDTO requestDTO) {
+    public ApiResponse<List<LocalDate>> selectRecord(@MemberId Long memberId, RecordCalendarRequestDTO requestDTO) {
         return ApiResponse.success(recordService.selectRecord(memberId, requestDTO));
     }
 

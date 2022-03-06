@@ -44,12 +44,13 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
     }
 
     @Override
-    public List<Record> findAllByDates(Long memberId, int year, int month) {
+    public List<LocalDateTime> findAllByDates(Long memberId, int year, int month) {
         LocalDateTime searchStartDate = LocalDateTime.of(year, month, 1, 0, 0);
         LocalDateTime searchEndDate = LocalDateTime.of(year, month + 1, 1, 0, 0);
 
         return jpaQueryFactory
-                .selectFrom(record)
+                .select(record.regDate)
+                .from(record)
                 .where(record.regDate.between(searchStartDate, searchEndDate))
                 .fetch();
     }

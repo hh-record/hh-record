@@ -2,6 +2,7 @@ package com.hh.record.service.record;
 
 import com.hh.record.dto.record.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface RecordService {
@@ -10,7 +11,7 @@ public interface RecordService {
 
     RecordResponseDTO createRecord(Long memberId, CreateRecordRequestDto requestDto);
 
-    List<RecordResponseDTO> selectRecord(Long memberId, RecordCalendarRequestDTO requestDTO);
+    List<LocalDate> selectRecord(Long memberId, RecordCalendarRequestDTO requestDTO);
 
     RecordResponseDTO selectOneRecord(Long memberId, Long recordId);
 

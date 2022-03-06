@@ -39,3 +39,8 @@ AUTH_TOKEN: {{AUTH_TOKEN}}
 POST {{host_api}}/hh-record/records/1
 Content-Type: application/json
 AUTH_TOKEN: {{AUTH_TOKEN}}
+
+### 일기 달력
+GET {{host_api}}/hh-record/records-calendar?year=2022&month=3
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}

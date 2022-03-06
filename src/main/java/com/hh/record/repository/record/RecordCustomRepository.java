@@ -2,6 +2,7 @@ package com.hh.record.repository.record;
 
 import com.hh.record.entity.Record;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,6 @@ public interface RecordCustomRepository {
 
     Optional<Record> findByMember_SeqAndSeq(Long memberId, Long recordId);
 
-    List<Record> findAllByDates(Long memberId, int year, int month);
+    List<LocalDateTime> findAllByDates(Long memberId, int year, int month);
 
 }
