@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,7 +25,7 @@ public class RecordServiceImpl implements RecordService {
     @Transactional(readOnly = true)
     @Override
     public List<RecordResponseDTO> retrieveRecord(Long memberId, RecordSearchRequestDTO requestDTO) {
-        return recordRepository.retrieveRecord(memberId, requestDTO.getCode(), requestDTO.getSearch())
+        return recordRepository.retrieveRecord(memberId, requestDTO.getCode(), requestDTO.getSearch(), requestDTO.getDate())
                 .stream().map(RecordResponseDTO::of).collect(Collectors.toList());
     }
 
@@ -38,9 +40,9 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<RecordResponseDTO> selectRecord(Long memberId, RecordCalendarRequestDTO requestDTO) {
-        return recordRepository.findAllByDates(memberId, requestDTO.getYear(), requestDTO.getMonth())
-                .stream().map(RecordResponseDTO::of).collect(Collectors.toList());
+    public List<LocalDate> selectRecord(Long memberId, RecordCalendarRequestDTO requestDTO) {
+        return recordRepository.findAllByDates(memberId, requestDTO.getYear(), requestDTO.getMonth()).stream()
+                .map(LocalDateTime::toLocalDate).distinct().collect(Collectors.toList());
     }
 
     @Override
