@@ -2,11 +2,13 @@ package com.hh.record.repository.record;
 
 import com.hh.record.entity.Record;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,12 +21,13 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public List<Record> retrieveRecord(Long memberId, String code, String search) {
+    public List<Record> retrieveRecord(Long memberId, String code, String search, LocalDate date) {
         BooleanBuilder booleanBuilder = searchBuilder(code, search);
         return jpaQueryFactory.selectFrom(record)
-                .leftJoin(record.fileList, file).fetchJoin()
+//                .leftJoin(record.fileList, file).fetchJoin()
                 .where(
-                        record.member.seq.eq(memberId).and(booleanBuilder)
+                        record.member.seq.eq(memberId).and(booleanBuilder),
+                        eqDate(date)
                 )
                 .orderBy(record.seq.desc())
                 .fetch();
@@ -34,7 +37,7 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
     public Optional<Record> findByMember_SeqAndSeq(Long memberId, Long recordId) {
         return Optional.ofNullable(
                 jpaQueryFactory.selectFrom(record)
-                        .leftJoin(record.fileList, file).fetchJoin()
+//                        .leftJoin(record.fileList, file).fetchJoin()
                         .where(
                                 record.member.seq.eq(memberId),
                                 record.seq.eq(recordId)
@@ -64,6 +67,15 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
                 booleanBuilder.or(record.content.contains(search));
         }
         return booleanBuilder;
+    }
+
+    private BooleanExpression eqDate(LocalDate date) {
+        if (date == null) {
+            return null;
+        }
+        LocalDateTime start = LocalDateTime.of(date, LocalTime.MIN);
+        LocalDateTime end = LocalDateTime.of(date, LocalTime.MAX);
+        return record.regDate.goe(start).and(record.regDate.loe(end));
     }
 
 }

@@ -2,13 +2,14 @@ package com.hh.record.repository.record;
 
 import com.hh.record.entity.Record;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
 public interface RecordCustomRepository {
 
-    List<Record> retrieveRecord(Long memberId, String code, String search);
+    List<Record> retrieveRecord(Long memberId, String code, String search, LocalDate date);
 
     Optional<Record> findByMember_SeqAndSeq(Long memberId, Long recordId);
 

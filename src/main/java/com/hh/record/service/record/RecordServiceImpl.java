@@ -25,7 +25,7 @@ public class RecordServiceImpl implements RecordService {
     @Transactional(readOnly = true)
     @Override
     public List<RecordResponseDTO> retrieveRecord(Long memberId, RecordSearchRequestDTO requestDTO) {
-        return recordRepository.retrieveRecord(memberId, requestDTO.getCode(), requestDTO.getSearch())
+        return recordRepository.retrieveRecord(memberId, requestDTO.getCode(), requestDTO.getSearch(), requestDTO.getDate())
                 .stream().map(RecordResponseDTO::of).collect(Collectors.toList());
     }
 

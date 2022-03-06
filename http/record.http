@@ -1,7 +1,13 @@
 ### 일기 리스트
-GET {{host_api}}/hh-record/records-main?search=ss&code=s
+GET {{host_api}}/hh-record/records-main?search=ss&code=s&date=2022-03-06
 Content-Type: application/json
 AUTH_TOKEN: {{AUTH_TOKEN}}
+
+### 일기 리스트
+GET {{host_api}}/hh-record/records-main
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}
+
 
 ### 일기 생성
 POST {{host_api}}/hh-record/records
