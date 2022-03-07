@@ -4,20 +4,18 @@ import com.hh.record.controller.ApiResponse;
 import com.hh.record.dto.auth.AuthRequest;
 import com.hh.record.service.auth.AuthService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("hh-record-intro")
 public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/auth/google")
+    @PostMapping("/google/login")
     public ApiResponse<String> googleAuthentication(@Valid @RequestBody AuthRequest request) {
         return ApiResponse.success(authService.googleAuthentication(request));
     }
