@@ -1,6 +1,16 @@
 server:
   port: 8888
 
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ANT_PATH_MATCHER
+  jpa:
+    properties:
+      hibernate:
+        default_batch_fetch_size: 1000
+
+
 cloud:
   aws:
     s3:
@@ -12,9 +22,6 @@ cloud:
 
 ---
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
   profiles:
     active: local, dev, local2
     include:
@@ -24,9 +31,6 @@ spring:
 
 ---
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ANT_PATH_MATCHER
   profiles:
     active: dev
     include: rds
