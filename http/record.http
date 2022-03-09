@@ -18,7 +18,8 @@ AUTH_TOKEN: {{AUTH_TOKEN}}
   "thumbnailUrl": "sss",
   "title": "title",
   "content": "content",
-  "fileList": ["file1", "file2"]
+  "fileList": ["file1", "file2"],
+  "hashTagList": ["좋음", "생일"]
 }
 
 ### 일기 수정

@@ -20,6 +20,10 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
 
+    /**
+     * OneToMany에서는 다중 FetchJoin 불가.
+     * default_batch_fetch_size: 1000 -> n+1 문제 해결
+     */
     @Override
     public List<Record> retrieveRecord(Long memberId, String code, String search, LocalDate date) {
         BooleanBuilder booleanBuilder = searchBuilder(code, search);

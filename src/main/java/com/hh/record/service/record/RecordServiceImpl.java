@@ -36,6 +36,7 @@ public class RecordServiceImpl implements RecordService {
                 .orElseThrow(() -> new NotFoundException(String.format("존재하지 않는 멤버 %s 입니다.", memberId)));
         Record record = recordRepository.save(requestDto.dtoToEntity(member));
         record.addFile(requestDto.getFileList());
+        record.addHashTag(requestDto.getHashTagList());
         return RecordResponseDTO.of(record);
     }
 

@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class RecordController {
     @ApiOperation("일기 생성")
     @Auth
     @PostMapping("/records")
-    public ApiResponse<RecordResponseDTO> createRecord(@MemberId Long memberId, @RequestBody CreateRecordRequestDto requestDto) {
+    public ApiResponse<RecordResponseDTO> createRecord(@MemberId Long memberId, @Valid @RequestBody CreateRecordRequestDto requestDto) {
         return ApiResponse.success(recordService.createRecord(memberId, requestDto));
     }
 

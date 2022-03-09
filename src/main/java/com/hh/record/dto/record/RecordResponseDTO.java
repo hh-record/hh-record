@@ -2,6 +2,7 @@ package com.hh.record.dto.record;
 
 import com.hh.record.entity.File;
 import com.hh.record.entity.Record;
+import com.hh.record.entity.RecordHashTag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -28,6 +29,8 @@ public class RecordResponseDTO {
 
     private List<String> fileUrl;
 
+    private List<String> hashTagList;
+
     private String thumbnailUrl;
 
     public static RecordResponseDTO of(Record record) {
@@ -39,6 +42,7 @@ public class RecordResponseDTO {
                 .regDate(record.getRegDate().toString())
                 .modDate(record.getModDate().toString())
                 .fileUrl(record.getFileList().stream().map(File::getFileKey).collect(Collectors.toList()))
+                .hashTagList(record.getRecordHashTagList().stream().map(RecordHashTag::getHashTag).collect(Collectors.toList()))
                 .build();
     }
 

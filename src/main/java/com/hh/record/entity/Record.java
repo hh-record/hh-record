@@ -25,6 +25,9 @@ public class Record extends BaseEntity {
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<File> fileList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<RecordHashTag> recordHashTagList = new ArrayList<>();
+
     private String thumbnailUrl;
 
     private String title;
@@ -32,12 +35,15 @@ public class Record extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    private Boolean isPrivate;
+
     @Builder
-    public Record(Member member, String thumbnailUrl, String title, String content) {
+    public Record(Member member, String thumbnailUrl, String title, String content, Boolean isPrivate) {
         this.member = member;
         this.thumbnailUrl = thumbnailUrl;
         this.title = title;
         this.content = content;
+        this.isPrivate = isPrivate;
     }
 
     public void addFile(List<String> fileList) {
@@ -55,6 +61,11 @@ public class Record extends BaseEntity {
         List<File> fileEntityList = fileList.stream().map(file -> File.of(this, file)).collect(Collectors.toList());
         this.fileList.clear();
         this.fileList.addAll(fileEntityList);
+    }
+
+    public void addHashTag(List<String> hashTagList) {
+        List<RecordHashTag> recordHashTagList = hashTagList.stream().map(hashTag -> RecordHashTag.of(this, hashTag)).collect(Collectors.toList());
+        this.recordHashTagList.addAll(recordHashTagList);
     }
 
 }

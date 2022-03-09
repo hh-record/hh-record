@@ -4,11 +4,13 @@ import com.hh.record.dto.record.CreateRecordRequestDto;
 import com.hh.record.dto.record.RecordResponseDTO;
 import com.hh.record.dto.record.RecordSearchRequestDTO;
 import com.hh.record.entity.File;
+import com.hh.record.entity.RecordHashTag;
 import com.hh.record.entity.member.Member;
 import com.hh.record.entity.member.MemberProvider;
 import com.hh.record.entity.member.MemberRole;
 import com.hh.record.entity.Record;
 import com.hh.record.repository.FileRepository;
+import com.hh.record.repository.RecordHashTagRepository;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.repository.record.RecordRepository;
 import com.hh.record.service.record.RecordService;
@@ -37,11 +39,15 @@ public class RecordServiceTest {
     @Autowired
     private FileRepository fileRepository;
 
+    @Autowired
+    private RecordHashTagRepository recordHashTagRepository;
+
     @AfterEach
     void clean() {
         recordRepository.deleteAll();
         memberRepository.deleteAll();
         fileRepository.deleteAll();
+        recordHashTagRepository.deleteAll();
     }
 
     @Test
@@ -50,8 +56,8 @@ public class RecordServiceTest {
         Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
         memberRepository.save(member);
 
-        Record record1 = new Record(member, "sss", "title1", "content1");
-        Record record2 = new Record(member, "sss", "title2", "content2");
+        Record record1 = new Record(member, "sss", "title1", "content1", Boolean.TRUE);
+        Record record2 = new Record(member, "sss", "title2", "content2", Boolean.TRUE);
         record2.addFile(Arrays.asList("c", "d"));
         recordRepository.saveAll(Arrays.asList(record1, record2));
 
@@ -71,7 +77,8 @@ public class RecordServiceTest {
         memberRepository.save(member);
 
         List<String> files = Arrays.asList("file1", "file2");
-        CreateRecordRequestDto requestDto = new CreateRecordRequestDto("thumbnailUrl", "title", "content", files);
+        List<String> hashTagList = Arrays.asList("좋은날", "생일");
+        CreateRecordRequestDto requestDto = CreateRecordRequestDto.testInstance("thumbnailUrl", "title", "content", files, hashTagList);
 
         // when
         recordService.createRecord(member.getSeq(), requestDto);
@@ -82,6 +89,8 @@ public class RecordServiceTest {
         assertThat(recordList.get(0).getTitle()).isEqualTo(requestDto.getTitle());
         List<File> fileList = fileRepository.findAll();
         assertThat(fileList).hasSize(2);
+        List<RecordHashTag> recordHashTagList = recordHashTagRepository.findAll();
+        assertThat(recordHashTagList).hasSize(2);
     }
 
 }
