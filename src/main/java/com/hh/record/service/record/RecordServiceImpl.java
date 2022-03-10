@@ -58,7 +58,7 @@ public class RecordServiceImpl implements RecordService {
     public Long updateRecord(Long memberId, Long recordId, RecordUpdateRequestDTO requestDTO) {
         Record record = recordRepository.findByMember_SeqAndSeq(memberId, recordId)
                 .orElseThrow(() -> new NotFoundException("일기가 존재하지 않습니다."));
-        record.changeRecord(requestDTO.getTitle(), requestDTO.getContent(), requestDTO.getThumbnailUrl());
+        record.changeRecord(requestDTO.getTitle(), requestDTO.getContent(), requestDTO.getThumbnailUrl(), requestDTO.getThemeUse());
         return record.getSeq();
     }
 

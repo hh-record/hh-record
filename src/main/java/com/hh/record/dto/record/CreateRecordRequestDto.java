@@ -43,7 +43,7 @@ public class CreateRecordRequestDto {
     }
 
     public Record dtoToEntity(Member member) {
-        return new Record(member, thumbnailUrl, title, content, isPrivate);
+        return new Record(member, thumbnailUrl, title, content, isPrivate, themeUse);
     }
 
 }
