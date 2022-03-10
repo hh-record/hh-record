@@ -78,7 +78,7 @@ public class RecordServiceTest {
 
         List<String> files = Arrays.asList("file1", "file2");
         List<String> hashTagList = Arrays.asList("좋은날", "생일");
-        CreateRecordRequestDto requestDto = CreateRecordRequestDto.testInstance("thumbnailUrl", "title", "content", files, hashTagList);
+        CreateRecordRequestDto requestDto = CreateRecordRequestDto.testInstance("thumbnailUrl", "title", "content", files, hashTagList, null);
 
         // when
         recordService.createRecord(member.getSeq(), requestDto);

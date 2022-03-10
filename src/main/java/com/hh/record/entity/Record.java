@@ -2,6 +2,8 @@ package com.hh.record.entity;
 
 import com.hh.record.entity.member.Member;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -35,15 +37,19 @@ public class Record extends BaseEntity {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    @Column(columnDefinition = "varchar(255) default 'N'")
+    private String themeUse;
+
     private Boolean isPrivate;
 
     @Builder
-    public Record(Member member, String thumbnailUrl, String title, String content, Boolean isPrivate) {
+    public Record(Member member, String thumbnailUrl, String title, String content, Boolean isPrivate, String themeUse) {
         this.member = member;
         this.thumbnailUrl = thumbnailUrl;
         this.title = title;
         this.content = content;
         this.isPrivate = isPrivate;
+        this.themeUse = themeUse;
     }
 
     public void addFile(List<String> fileList) {
@@ -51,10 +57,11 @@ public class Record extends BaseEntity {
         this.fileList.addAll(fileEntityList);
     }
 
-    public void changeRecord(String title, String content, String fileUrl) {
+    public void changeRecord(String title, String content, String fileUrl, String themeUse) {
         this.title = title;
         this.content = content;
         this.thumbnailUrl = fileUrl;
+        this.themeUse = themeUse;
     }
 
     public void changeFile(List<String> fileList) {

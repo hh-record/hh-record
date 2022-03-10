@@ -17,4 +17,6 @@ public class RecordUpdateRequestDTO {
 
     private String thumbnailUrl;
 
+    private String themeUse;
+
 }

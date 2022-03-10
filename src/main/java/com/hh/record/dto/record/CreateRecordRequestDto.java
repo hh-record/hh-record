@@ -27,20 +27,23 @@ public class CreateRecordRequestDto {
 
     private final Boolean isPrivate = Boolean.TRUE;
 
-    public CreateRecordRequestDto(String thumbnailUrl, String title, String content, List<String> fileList, List<String> hashTagList) {
+    private String themeUse;
+
+    public CreateRecordRequestDto(String thumbnailUrl, String title, String content, List<String> fileList, List<String> hashTagList, String themeUse) {
         this.thumbnailUrl = thumbnailUrl;
         this.title = title;
         this.content = content;
         this.fileList = fileList;
         this.hashTagList = hashTagList;
+        this.themeUse = themeUse;
     }
 
-    public static CreateRecordRequestDto testInstance(String thumbnailUrl, String title, String content, List<String> fileList, List<String> hashTagList) {
-        return new CreateRecordRequestDto(thumbnailUrl, title, content, fileList, hashTagList);
+    public static CreateRecordRequestDto testInstance(String thumbnailUrl, String title, String content, List<String> fileList, List<String> hashTagList, String themeUse) {
+        return new CreateRecordRequestDto(thumbnailUrl, title, content, fileList, hashTagList, themeUse);
     }
 
     public Record dtoToEntity(Member member) {
-        return new Record(member, thumbnailUrl, title, content, isPrivate);
+        return new Record(member, thumbnailUrl, title, content, isPrivate, themeUse);
     }
 
 }
