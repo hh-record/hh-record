@@ -33,6 +33,8 @@ public class RecordResponseDTO {
 
     private String thumbnailUrl;
 
+    private String themeUse;
+
     public static RecordResponseDTO of(Record record) {
         return RecordResponseDTO.builder()
                 .record_seq(record.getSeq())
@@ -43,6 +45,7 @@ public class RecordResponseDTO {
                 .modDate(record.getModDate().toString())
                 .fileUrl(record.getFileList().stream().map(File::getFileKey).collect(Collectors.toList()))
                 .hashTagList(record.getRecordHashTagList().stream().map(RecordHashTag::getHashTag).collect(Collectors.toList()))
+                .themeUse(record.getThemeUse())
                 .build();
     }
 

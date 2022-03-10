@@ -27,7 +27,7 @@ public class CreateRecordRequestDto {
 
     private final Boolean isPrivate = Boolean.TRUE;
 
-    private String themeUse;
+    private String themeUse = "N";
 
     public CreateRecordRequestDto(String thumbnailUrl, String title, String content, List<String> fileList, List<String> hashTagList, String themeUse) {
         this.thumbnailUrl = thumbnailUrl;

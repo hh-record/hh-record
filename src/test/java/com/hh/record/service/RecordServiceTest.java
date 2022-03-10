@@ -56,8 +56,8 @@ public class RecordServiceTest {
         Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
         memberRepository.save(member);
 
-        Record record1 = new Record(member, "sss", "title1", "content1", Boolean.TRUE);
-        Record record2 = new Record(member, "sss", "title2", "content2", Boolean.TRUE);
+        Record record1 = new Record(member, "sss", "title1", "content1", Boolean.TRUE, "N");
+        Record record2 = new Record(member, "sss", "title2", "content2", Boolean.TRUE, "N");
         record2.addFile(Arrays.asList("c", "d"));
         recordRepository.saveAll(Arrays.asList(record1, record2));
 
