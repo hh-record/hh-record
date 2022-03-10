@@ -2,6 +2,8 @@ package com.hh.record.entity;
 
 import com.hh.record.entity.member.Member;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -34,6 +36,9 @@ public class Record extends BaseEntity {
 
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @Column(columnDefinition = "varchar(255) default 'N'")
+    private String themeUse;
 
     private Boolean isPrivate;
 
