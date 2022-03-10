@@ -52,7 +52,7 @@ public class RecordController {
     @Auth
     @PutMapping(value = "/records/{recordId}", produces = "application/json")
     public ApiResponse<Long> updateRecord(@MemberId Long memberId, @PathVariable("recordId") Long recordId,
-                                          @RequestBody RecordUpdateRequestDTO requestDTO) {
+                                          @Valid @RequestBody RecordUpdateRequestDTO requestDTO) {
         return ApiResponse.success(recordService.updateRecord(memberId, recordId, requestDTO));
     }
 
