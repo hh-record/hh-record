@@ -4,6 +4,7 @@ import com.hh.record.config.interceptor.Auth;
 import com.hh.record.config.interceptor.MemberId;
 import com.hh.record.controller.ApiResponse;
 import com.hh.record.dto.record.*;
+import com.hh.record.dto.theme.ThemeInfoResponse;
 import com.hh.record.service.record.RecordService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,13 @@ public class RecordController {
     @GetMapping("/records-calendar")
     public ApiResponse<List<LocalDate>> selectRecord(@MemberId Long memberId, RecordCalendarRequestDTO requestDTO) {
         return ApiResponse.success(recordService.selectRecord(memberId, requestDTO));
+    }
+
+    @ApiOperation("오늘의 주제 불러오기")
+    @Auth
+    @GetMapping("/records-theme")
+    public ApiResponse<ThemeInfoResponse> getTheme() {
+        return ApiResponse.success(recordService.selectTheme());
     }
 
     @ApiOperation("일기 생성")

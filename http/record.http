@@ -53,3 +53,8 @@ AUTH_TOKEN: {{AUTH_TOKEN}}
 GET {{host_api}}/hh-record/records-calendar?year=2022&month=3
 Content-Type: application/json
 AUTH_TOKEN: {{AUTH_TOKEN}}
+
+### 오늘의 주제 불러오기
+GET {{host_api}}/hh-record/records-theme
+Content-Type: application/json
+AUTH_TOKEN: {{AUTH_TOKEN}}
