@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor
@@ -19,6 +18,8 @@ public class Theme extends BaseEntity{
 
     private String content;
 
-    private LocalDateTime showDate;
+    private int month;
+
+    private int day;
 
 }
