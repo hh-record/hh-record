@@ -2,10 +2,13 @@ package com.hh.record.service.record;
 
 import com.hh.record.config.exception.errorCode.NotFoundException;
 import com.hh.record.dto.record.*;
+import com.hh.record.dto.theme.ThemeInfoResponse;
+import com.hh.record.entity.Theme;
 import com.hh.record.entity.member.Member;
 import com.hh.record.entity.Record;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.repository.record.RecordRepository;
+import com.hh.record.repository.theme.ThemeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,6 +24,7 @@ public class RecordServiceImpl implements RecordService {
 
     private final MemberRepository memberRepository;
     private final RecordRepository recordRepository;
+    private final ThemeRepository themeRepository;
 
     @Transactional(readOnly = true)
     @Override
@@ -76,6 +80,15 @@ public class RecordServiceImpl implements RecordService {
     public Long deleteRecord(Long memberId, Long recordId) {
         recordRepository.deleteByMember_SeqAndSeq(memberId, recordId);
         return recordId;
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public ThemeInfoResponse selectTheme() {
+        LocalDate now = LocalDate.now();
+        Theme theme = themeRepository.selectByDate(now.getMonthValue(), now.getDayOfMonth())
+                .orElseThrow(() -> new NotFoundException("오늘은 주제가 없습니다."));
+        return ThemeInfoResponse.of(theme);
     }
 
 }
