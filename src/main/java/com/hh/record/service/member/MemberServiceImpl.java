@@ -96,4 +96,14 @@ public class MemberServiceImpl implements MemberService {
                 .orElseThrow(() -> new NotFoundException("회원 정보를 확인해주세요."));
     }
 
+    @Transactional
+    @Override
+    public void followMember(Long followMemberSeq, Long memberId) {
+        Member targetMember = memberRepository.findById(followMemberSeq)
+                .orElseThrow(() -> new NotFoundException(String.format("존재하지 않는 회원 %s 입니다.", followMemberSeq)));
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException(String.format("존재하지 않는 회원 %s 입니다.", memberId)));
+        member.followMember(targetMember);
+    }
+
 }

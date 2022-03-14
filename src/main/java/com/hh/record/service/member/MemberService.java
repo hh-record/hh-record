@@ -26,4 +26,6 @@ public interface MemberService {
 
     String loginMember(String id, String password);
 
+    void followMember(Long followMemberSeq, Long memberId);
+
 }

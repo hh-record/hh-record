@@ -78,3 +78,12 @@ Content-Type: application/json
 {
   "certificationNumber": "05564075"
 }
+
+### follow
+POST {{host_api}}/hh-record/follow
+AUTH_TOKEN: {{AUTH_TOKEN}}
+Content-Type: application/json
+
+{
+  "memberSeq": 2
+}
