@@ -106,4 +106,14 @@ public class MemberServiceImpl implements MemberService {
         member.followMember(targetMember);
     }
 
+    @Transactional
+    @Override
+    public void unfollowMember(Long unFollowMemberSeq, Long memberId) {
+        Member targetMember = memberRepository.findById(unFollowMemberSeq)
+                .orElseThrow(() -> new NotFoundException(String.format("존재하지 않는 회원 %s 입니다.", unFollowMemberSeq)));
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException(String.format("존재하지 않는 회원 %s 입니다.", memberId)));
+        member.unfollowMember(targetMember);
+    }
+
 }
