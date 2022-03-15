@@ -84,7 +84,6 @@ public class Member extends BaseEntity {
     public void unfollowMember(Member targetMember) {
         MemberFollow memberFollow = this.findFollowByMemberId(targetMember)
                 .orElseThrow(() -> new NotFoundException(String.format("팔로우를 하지 않은 사람 %s 입니다.", targetMember.getId())));
-        System.out.println("memberFollow = " + memberFollow.getMember().getId());
         this.memberList.remove(memberFollow);
     }
 

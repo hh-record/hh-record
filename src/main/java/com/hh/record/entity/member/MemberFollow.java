@@ -36,7 +36,7 @@ public class MemberFollow extends BaseEntity {
     }
 
     public static MemberFollow newFollow(Member member, Member targetMember) {
-        if (member.getSeq().equals(targetMember.getSeq())) {
+        if (member.equals(targetMember)) {
             throw new ValidationException("자기 자신은 팔로우를 할 수 없습니다.");
         }
         return new MemberFollow(member, targetMember);
