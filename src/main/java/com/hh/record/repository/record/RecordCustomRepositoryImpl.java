@@ -106,13 +106,12 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
 
     private RecordResponseDTO setRecordResponseDTO(Record record) {
         RecordResponseDTO recordResponseDTO = RecordResponseDTO.of(record);
-        recordResponseDTO.setThemeContent(selectThemeContent());
+        recordResponseDTO.setThemeContent(selectThemeContent(record.getRegDate()));
         return recordResponseDTO;
     }
 
-    private String selectThemeContent() {
-        LocalDate now = LocalDate.now();
-        Theme theme = themeRepository.findDateByMonthAndDay(now.getMonthValue(), now.getDayOfMonth())
+    private String selectThemeContent(LocalDateTime date) {
+        Theme theme = themeRepository.findDateByMonthAndDay(date.getMonthValue(), date.getDayOfMonth())
                 .orElseThrow(() -> new NotFoundException("오늘은 주제가 없습니다."));
         return theme.getContent();
     }
