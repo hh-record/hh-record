@@ -31,7 +31,7 @@ public class RecordController {
     @ApiOperation("달력 일기 목록 조회")
     @Auth
     @GetMapping("/records-calendar")
-    public ApiResponse<List<LocalDate>> selectRecord(@MemberId Long memberId, RecordCalendarRequestDTO requestDTO) {
+    public ApiResponse<List<LocalDate>> selectRecord(@MemberId Long memberId, @Valid RecordCalendarRequestDTO requestDTO) {
         return ApiResponse.success(recordService.selectRecord(memberId, requestDTO));
     }
 
