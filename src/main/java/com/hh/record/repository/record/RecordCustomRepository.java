@@ -1,5 +1,6 @@
 package com.hh.record.repository.record;
 
+import com.hh.record.dto.record.RecordResponseDTO;
 import com.hh.record.entity.Record;
 
 import java.time.LocalDate;
@@ -14,5 +15,7 @@ public interface RecordCustomRepository {
     Optional<Record> findByMember_SeqAndSeq(Long memberId, Long recordId);
 
     List<LocalDateTime> findAllByDates(Long memberId, int year, int month);
+
+    RecordResponseDTO selectOneRecord(Long memberId, Long recordId);
 
 }

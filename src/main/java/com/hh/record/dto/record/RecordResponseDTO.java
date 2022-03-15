@@ -35,6 +35,8 @@ public class RecordResponseDTO {
 
     private String themeUse;
 
+    private String themeContent;
+
     public static RecordResponseDTO of(Record record) {
         return RecordResponseDTO.builder()
                 .record_seq(record.getSeq())
