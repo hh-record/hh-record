@@ -19,6 +19,7 @@ import java.util.Optional;
 
 import static com.hh.record.entity.QFile.*;
 import static com.hh.record.entity.QRecord.record;
+import static com.hh.record.entity.QRecordHashTag.recordHashTag;
 
 @RequiredArgsConstructor
 public class RecordCustomRepositoryImpl implements RecordCustomRepository {
@@ -35,7 +36,8 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
     public List<Record> retrieveRecord(Long memberId, String code, String search, LocalDate date) {
         BooleanBuilder booleanBuilder = searchBuilder(code, search);
         return jpaQueryFactory.selectFrom(record).distinct()
-                .leftJoin(record.fileList, file).fetchJoin()
+                .leftJoin(record.fileList, file)
+                .leftJoin(record.recordHashTagList, recordHashTag)
                 .where(
                         record.member.seq.eq(memberId).and(booleanBuilder),
                         eqDate(date)
@@ -91,6 +93,8 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
                 booleanBuilder.or(record.title.contains(search));
             if (code.contains("c"))
                 booleanBuilder.or(record.content.contains(search));
+            if (code.contains("g"))
+                booleanBuilder.or(recordHashTag.hashTag.contains(search));
         }
         return booleanBuilder;
     }

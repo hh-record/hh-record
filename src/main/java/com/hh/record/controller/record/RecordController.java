@@ -23,8 +23,8 @@ public class RecordController {
 
     @ApiOperation("검색/메인 일기 목록 조회")
     @Auth
-    @GetMapping("/records-main")
-    public ApiResponse<List<RecordResponseDTO>> retrieveRecord(@MemberId Long memberId, RecordSearchRequestDTO requestDTO) {
+    @GetMapping(value = "/records-main", produces = "application/json")
+    public ApiResponse<List<RecordResponseDTO>> retrieveRecord(@MemberId Long memberId, @RequestBody RecordSearchRequestDTO requestDTO) {
         return ApiResponse.success(recordService.retrieveRecord(memberId, requestDTO));
     }
 

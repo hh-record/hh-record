@@ -2,8 +2,6 @@ package com.hh.record.entity;
 
 import com.hh.record.entity.member.Member;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import javax.persistence.*;
 import java.util.ArrayList;
