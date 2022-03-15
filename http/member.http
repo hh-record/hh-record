@@ -87,3 +87,12 @@ Content-Type: application/json
 {
   "memberSeq": 2
 }
+
+### unfollow
+POST {{host_api}}/hh-record/unfollow
+AUTH_TOKEN: {{AUTH_TOKEN}}
+Content-Type: application/json
+
+{
+  "memberSeq": 2
+}

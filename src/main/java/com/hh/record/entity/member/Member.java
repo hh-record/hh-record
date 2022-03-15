@@ -1,5 +1,6 @@
 package com.hh.record.entity.member;
 
+import com.hh.record.config.exception.errorCode.NotFoundException;
 import com.hh.record.config.exception.errorCode.ValidationException;
 import com.hh.record.dto.auth.response.GoogleMemberInfoResponse;
 import com.hh.record.entity.BaseEntity;
@@ -19,7 +20,8 @@ import java.util.Optional;
 @ToString
 public class Member extends BaseEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_seq")
     private Long seq;
 
@@ -75,14 +77,18 @@ public class Member extends BaseEntity {
                 .ifPresent(memberFollow -> {
                     throw new ValidationException("이미 팔로우를 하고 있는 사람입니다.");
                 });
-        MemberFollow memberFollow = MemberFollow.of(this, targetMember);
+        MemberFollow memberFollow = MemberFollow.newFollow(this, targetMember);
         this.targetMemberList.add(memberFollow);
     }
 
+    public void unfollowMember(Member targetMember) {
+        MemberFollow memberFollow = this.findFollowByMemberId(targetMember)
+                .orElseThrow(() -> new NotFoundException(String.format("팔로우를 하지 않은 사람 %s 입니다.", targetMember.getId())));
+        this.memberList.remove(memberFollow);
+    }
+
     private Optional<MemberFollow> findFollowByMemberId(Member targetMember) {
-        Optional<MemberFollow> first = this.memberList.stream().filter(memberFollow -> memberFollow.findFollowByTargetMember(targetMember)).findFirst();
-        System.out.println("first = " + first);
-        return first;
+        return this.memberList.stream().filter(memberFollow -> memberFollow.findFollowByTargetMember(targetMember)).findFirst();
     }
 
     public static Member newMember(GoogleMemberInfoResponse memberInfoResponse, MemberProvider provider) {

@@ -27,4 +27,11 @@ public class FollowController {
         return ApiResponse.OK;
     }
 
+    @Auth
+    @PostMapping("/unfollow")
+    public ApiResponse<String> unfollowMember(@RequestBody @Valid FollowMemberRequestDTO requestDTO, @MemberId Long memberId) {
+        memberService.unfollowMember(requestDTO.getMemberSeq(), memberId);
+        return ApiResponse.OK;
+    }
+
 }

@@ -1,5 +1,6 @@
 package com.hh.record.entity.member;
 
+import com.hh.record.config.exception.errorCode.ValidationException;
 import com.hh.record.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -34,7 +35,10 @@ public class MemberFollow extends BaseEntity {
         return Objects.equals(this.targetMember.getSeq(), targetMember.getSeq());
     }
 
-    public static MemberFollow of(Member member, Member targetMember) {
+    public static MemberFollow newFollow(Member member, Member targetMember) {
+        if (member.equals(targetMember)) {
+            throw new ValidationException("자기 자신은 팔로우를 할 수 없습니다.");
+        }
         return new MemberFollow(member, targetMember);
     }
 

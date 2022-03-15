@@ -28,4 +28,6 @@ public interface MemberService {
 
     void followMember(Long followMemberSeq, Long memberId);
 
+    void unfollowMember(Long memberSeq, Long memberId);
+
 }
