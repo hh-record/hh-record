@@ -21,9 +21,16 @@ public class RecordController {
 
     private final RecordService recordService;
 
-    @ApiOperation("검색/메인 일기 목록 조회")
+    @ApiOperation("메인 일기 목록 조회")
     @Auth
-    @GetMapping(value = "/records-main", produces = "application/json")
+    @GetMapping(value = "/records-main")
+    public ApiResponse<List<RecordResponseDTO>> selectRecordList(@MemberId Long memberId) {
+        return ApiResponse.success(recordService.selectRecordList(memberId));
+    }
+
+    @ApiOperation("검색 일기 목록 조회")
+    @Auth
+    @PostMapping(value = "/records-main")
     public ApiResponse<List<RecordResponseDTO>> retrieveRecord(@MemberId Long memberId, @RequestBody RecordSearchRequestDTO requestDTO) {
         return ApiResponse.success(recordService.retrieveRecord(memberId, requestDTO));
     }

@@ -8,6 +8,8 @@ import java.util.List;
 
 public interface RecordService {
 
+    List<RecordResponseDTO> selectRecordList(Long memberId);
+
     List<RecordResponseDTO> retrieveRecord(Long memberId, RecordSearchRequestDTO requestDTO);
 
     RecordResponseDTO createRecord(Long memberId, CreateRecordRequestDto requestDto);

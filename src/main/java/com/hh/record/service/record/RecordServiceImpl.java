@@ -10,13 +10,13 @@ import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.repository.record.RecordRepository;
 import com.hh.record.repository.theme.ThemeRepository;
 import lombok.RequiredArgsConstructor;
+import org.apache.el.stream.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,6 +26,13 @@ public class RecordServiceImpl implements RecordService {
     private final MemberRepository memberRepository;
     private final RecordRepository recordRepository;
     private final ThemeRepository themeRepository;
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<RecordResponseDTO> selectRecordList(Long memberId) {
+        return recordRepository.findByMember_seq(memberId).stream()
+                .map(RecordResponseDTO::of).collect(Collectors.toList());
+    }
 
     @Transactional(readOnly = true)
     @Override
