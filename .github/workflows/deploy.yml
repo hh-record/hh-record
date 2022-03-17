@@ -22,6 +22,8 @@ jobs:
 
       - name: export variable
         run: export DB_USERNAME=${{ secrets.USERNAME }} | export DB_PASSWORD=${{ secrets.PASSWORD }}
+             echo DB_USERNAME
+             echo DB_PASSWORD
 
       - name: Create aws.yml file
         env:
