@@ -45,7 +45,8 @@ public class MemberServiceImpl implements MemberService {
     public void updateMember(Long id, UpdateMemberRequestDTO requestDTO) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException("존재하지 않는 회원입니다."));
-        member.changeMemberInfo(requestDTO.getUserName(), requestDTO.getEmail(), requestDTO.getPhoneNumber());
+        member.changeMemberInfo(requestDTO.getUserName(), requestDTO.getEmail(), requestDTO.getPhoneNumber(),
+                requestDTO.isPrivate(), requestDTO.getProfileImgUrl());
     }
 
     @Transactional

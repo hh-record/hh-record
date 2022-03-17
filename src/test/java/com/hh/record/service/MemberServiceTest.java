@@ -41,7 +41,7 @@ public class MemberServiceTest {
     @Test
     void memberSignUp() {
         // given
-        InsertMemberRequestDTO request = InsertMemberRequestDTO.testInstance("admin1", "admin1", "test@test.com", "2234", "1111");
+        InsertMemberRequestDTO request = InsertMemberRequestDTO.testInstance("admin1", "admin1", "test@test.com", "2234", "1111", true, "test.com");
 
         // when
         memberService.insertMember(request);
@@ -57,9 +57,9 @@ public class MemberServiceTest {
     @DisplayName("이미 존재하는 아이디이면 예외처리")
     void memberSignUp2() {
         // given
-        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
+        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
         memberRepository.save(member);
-        InsertMemberRequestDTO request = InsertMemberRequestDTO.testInstance("admin1", "admin1", "test@test.com", "2234", "1111");
+        InsertMemberRequestDTO request = InsertMemberRequestDTO.testInstance("admin1", "admin1", "test@test.com", "2234", "1111", false, "test.com");
 
         assertThatThrownBy(
                 () -> memberService.insertMember(request)
@@ -70,8 +70,8 @@ public class MemberServiceTest {
     @Test
     void memberFollow1() {
         // given
-        Member member1 = new Member("admin1", "admin1", "test@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
-        Member member2 = new Member("admin1", "admin2", "test2@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
+        Member member1 = new Member("admin1", "admin1", "test@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
+        Member member2 = new Member("admin1", "admin2", "test2@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
         memberRepository.saveAll(Arrays.asList(member1, member2));
 
         // when
@@ -86,8 +86,8 @@ public class MemberServiceTest {
     @Test
     void memberFollow2() {
         // given
-        Member member1 = new Member("admin1", "admin1", "test@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
-        Member member2 = new Member("admin1", "admin2", "test2@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
+        Member member1 = new Member("admin1", "admin1", "test@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
+        Member member2 = new Member("admin1", "admin2", "test2@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
         memberRepository.saveAll(Arrays.asList(member1, member2));
 
         // when
@@ -100,8 +100,8 @@ public class MemberServiceTest {
     @Test
     void memberFollow3() {
         // given
-        Member member1 = new Member("admin1", "admin1", "test@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
-        Member member2 = new Member("admin1", "admin2", "test2@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
+        Member member1 = new Member("admin1", "admin1", "test@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
+        Member member2 = new Member("admin1", "admin2", "test2@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
         member1.followMember(member2);
         memberRepository.saveAll(Arrays.asList(member1, member2));
 
