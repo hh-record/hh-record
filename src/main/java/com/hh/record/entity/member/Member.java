@@ -69,9 +69,8 @@ public class Member extends BaseEntity {
         this.provider = provider;
     }
 
-    public void changeMemberInfo(String userName, String email, String phoneNumber, boolean isPrivate, String profileImgUrl) {
+    public void changeMemberInfo(String userName, String phoneNumber, boolean isPrivate, String profileImgUrl) {
         this.userName = userName;
-        this.email = email;
         this.phoneNumber = phoneNumber;
         this.isPrivate = isPrivate;
         this.profileImgUrl = profileImgUrl;
