@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - develop
+      - deploy
 
 env:
   RESOURCE_FILE: src/main/resources
@@ -22,8 +23,10 @@ jobs:
 
       - name: export variable
         run: export DB_USERNAME=${{ secrets.USERNAME }} | export DB_PASSWORD=${{ secrets.PASSWORD }}
-             echo DB_USERNAME
-             echo DB_PASSWORD
+      - name: echo DB_USERNAME
+        run: echo DB_USERNAME
+      - name: echo DB_PASSWORD
+        run: echo DB_PASSWORD
 
       - name: Create aws.yml file
         env:
