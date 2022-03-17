@@ -8,7 +8,6 @@ on:
 
 env:
   RESOURCE_FILE: src/main/resources
-  PATH: ~/jsTest
 
 jobs:
   build:
@@ -80,5 +79,4 @@ jobs:
           key: ${{ secrets.AWS_PEM_KEY }}
           port: 22
           script: |
-            cp $RESOURCE_FILE/application-rds.properties $PATH/application-rds.properties
             ~/app/record-backend/shl/startRecordInstance.sh
