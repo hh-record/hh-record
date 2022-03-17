@@ -6,6 +6,7 @@ on:
 env:
   DOCKER_IMAGE: ghcr.io/hh-record/hh-record
   VERSION: ${{ github.sha }}
+  RESOURCE_FILE: src/main/resources
 
 jobs:
   build:
