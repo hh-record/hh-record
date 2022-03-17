@@ -36,6 +36,10 @@ public class Member extends BaseEntity {
 
     private String phoneNumber;
 
+    private Boolean isPrivate;
+
+    private String profileImgUrl;
+
     @Enumerated(EnumType.STRING)
     private MemberRole roleSet;
 
@@ -52,20 +56,25 @@ public class Member extends BaseEntity {
     private final List<MemberFollow> targetMemberList = new ArrayList<>();
 
     @Builder
-    public Member(String id, String userName, String email, String password, String phoneNumber, MemberRole roleSet, MemberProvider provider) {
+    public Member(String id, String userName, String email, String password, String phoneNumber,
+                  boolean isPrivate, String profileImgUrl, MemberRole roleSet, MemberProvider provider) {
         this.id = id;
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.phoneNumber = phoneNumber;
+        this.isPrivate = isPrivate;
+        this.profileImgUrl = profileImgUrl;
         this.roleSet = roleSet;
         this.provider = provider;
     }
 
-    public void changeMemberInfo(String userName, String email, String phoneNumber) {
+    public void changeMemberInfo(String userName, String email, String phoneNumber, boolean isPrivate, String profileImgUrl) {
         this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.isPrivate = isPrivate;
+        this.profileImgUrl = profileImgUrl;
     }
 
     public void changePassword(String password) {
@@ -96,6 +105,7 @@ public class Member extends BaseEntity {
                 .id(memberInfoResponse.getEmail())
                 .email(memberInfoResponse.getEmail())
                 .userName(memberInfoResponse.getName())
+                .profileImgUrl(memberInfoResponse.getPicture())
                 .roleSet(MemberRole.USER)
                 .provider(provider)
                 .build();

@@ -31,8 +31,13 @@ public class InsertMemberRequestDTO {
     @NotBlank(message = "회원 비밀번호를 넣어주세요.")
     private String password;
 
-    public static InsertMemberRequestDTO testInstance(String id, String userName, String email, String phoneNumber, String password) {
-        return new InsertMemberRequestDTO(id, userName, email, phoneNumber, password);
+    private boolean isPrivate;
+
+    private String profileImgUrl;
+
+    public static InsertMemberRequestDTO testInstance(String id, String userName, String email, String phoneNumber,
+                                                      String password, boolean isPrivate, String profileImgUrl) {
+        return new InsertMemberRequestDTO(id, userName, email, phoneNumber, password, isPrivate, profileImgUrl);
     }
 
     public Member dtoToEntity(String encodedPassword) {
@@ -42,6 +47,8 @@ public class InsertMemberRequestDTO {
                 .userName(userName)
                 .phoneNumber(phoneNumber)
                 .password(encodedPassword)
+                .isPrivate(isPrivate)
+                .profileImgUrl(profileImgUrl)
                 .roleSet(MemberRole.USER)
                 .provider(MemberProvider.LOCAL)
                 .build();

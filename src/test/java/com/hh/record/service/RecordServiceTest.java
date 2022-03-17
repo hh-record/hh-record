@@ -53,7 +53,7 @@ public class RecordServiceTest {
     @Test
     void retrieveRecord() {
         // given
-        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
+        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
         memberRepository.save(member);
 
         Record record1 = new Record(member, "sss", "title1", "content1", Boolean.TRUE, "N");
@@ -73,7 +73,7 @@ public class RecordServiceTest {
     @Test
     void createRecord() {
         // given
-        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", MemberRole.USER, MemberProvider.LOCAL);
+        Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
         memberRepository.save(member);
 
         List<String> files = Arrays.asList("file1", "file2");

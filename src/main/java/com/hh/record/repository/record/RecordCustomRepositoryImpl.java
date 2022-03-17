@@ -17,7 +17,7 @@ import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
-import static com.hh.record.entity.QFile.*;
+import static com.hh.record.entity.QFile.file;
 import static com.hh.record.entity.QRecord.record;
 import static com.hh.record.entity.QRecordHashTag.recordHashTag;
 
