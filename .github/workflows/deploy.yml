@@ -42,7 +42,7 @@ jobs:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
         run: |
-          echo "google.auth.client_id=$CLIENT_ID\ngoogle.auth.client_secret=$CLIENT_SECRET\ngoogle.auth.grant_type=authorization_code\ngoogle.auth.url=https://accounts.google.com/o/oauth2/token\ngoogle.auth.user_info_url=https://www.googleapis.com/oauth2/v2/userinfo" > $RESOURCE_FILE/application-google.properties
+          echo "google.auth.client_id=$CLIENT_ID\ngoogle.auth.client_secret=$CLIENT_SECRET\ngoogle.auth.grant_type=authorization_code\ngoogle.auth.base_url=https://www.googleapis.com\ngoogle.auth.token_url=/oauth2/v4/token\ngoogle.auth.profile_url=/oauth2/v3/userinfo" > $RESOURCE_FILE/application-google.properties
           cat $RESOURCE_FILE/application-google.properties
 
       - name: Create rds.yml file
@@ -51,7 +51,7 @@ jobs:
           DB_USERNAME: ${{ secrets.USERNAME }}
           DB_PASSWORD: ${{ secrets.PASSWORD }}
         run: |
-          echo "spring.datasource.url=$URL\nspring.datasource.username=$DB_USERNAME\nspring.datasource.password=$DB_PASSWORD" > $RESOURCE_FILE/application-rds.properties
+          echo "spring.datasource.hikari.jdbc-url=$URL\nspring.datasource.hikari.username=$DB_USERNAME\nspring.datasource.hikari.password=$DB_PASSWORD" > $RESOURCE_FILE/application-rds.properties
           cat $RESOURCE_FILE/application-aws.properties
           cat $RESOURCE_FILE/application-email.properties
           cat $RESOURCE_FILE/application-google.properties

@@ -1,0 +1,93 @@
+name: CI/CD Docker
+
+on:
+  push:
+    branches: [ master, develop, docker ]
+env:
+  DOCKER_IMAGE: ghcr.io/hh-record/hh-record
+  VERSION: ${{ github.sha }}
+  RESOURCE_FILE: src/main/resources
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Create aws.yml file
+        env:
+          AWS_CREDENTIALS_ACCESS_KEY: ${{ secrets.AWS_CREDENTIALS_ACCESS_KEY }}
+          AWS_CREDENTIALS_SECRET_KEY: ${{ secrets.AWS_CREDENTIALS_SECRET_KEY }}
+        run: |
+          echo $RESOURCE_FILE
+          echo "cloud.aws.credentials.access_key=$AWS_CREDENTIALS_ACCESS_KEY\ncloud.aws.credentials.secret_key=$AWS_CREDENTIALS_SECRET_KEY" > $RESOURCE_FILE/application-aws.properties
+          cat $RESOURCE_FILE/application-aws.properties
+
+      - name: Create email.yml file
+        env:
+          MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
+          MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
+        run: |
+          echo "spring.mail.username=$MAIL_USERNAME\nspring.mail.password=$MAIL_PASSWORD" > $RESOURCE_FILE/application-email.properties
+          cat $RESOURCE_FILE/application-email.properties
+
+      - name: Create google.yml file
+        env:
+          CLIENT_ID: ${{ secrets.CLIENT_ID }}
+          CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+        run: |
+          echo "google.auth.client_id=$CLIENT_ID\ngoogle.auth.client_secret=$CLIENT_SECRET\ngoogle.auth.grant_type=authorization_code\ngoogle.auth.url=https://accounts.google.com/o/oauth2/token\ngoogle.auth.user_info_url=https://www.googleapis.com/oauth2/v2/userinfo" > $RESOURCE_FILE/application-google.properties
+          cat $RESOURCE_FILE/application-google.properties
+
+      - name: Create rds.yml file
+        env:
+          URL: ${{ secrets.URL }}
+          DB_USERNAME: ${{ secrets.USERNAME }}
+          DB_PASSWORD: ${{ secrets.PASSWORD }}
+        run: |
+          echo "spring.datasource.hikari.jdbc-url=$URL\nspring.datasource.hikari.username=$DB_USERNAME\nspring.datasource.hikari.password=$DB_PASSWORD" > $RESOURCE_FILE/application-rds.properties
+          cat $RESOURCE_FILE/application-aws.properties
+          cat $RESOURCE_FILE/application-email.properties
+          cat $RESOURCE_FILE/application-google.properties
+          cat $RESOURCE_FILE/application-rds.properties  
+
+      - name: Set up docker buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Cache docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ env.VERSION }} # runner 설정에서 읽어들일거에요.
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: Login to ghcr
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.CR_PAT }}
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
+
+  deploy:
+    needs: build
+    name: Deploy
+    runs-on: [ self-hosted, label-development ]
+    steps:
+      - name: Login to ghcr
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.CR_PAT }}
+      - name: Docker run
+        run: |
+          docker ps -q --filter "name=hh-record" | grep -q . && docker stop hh-record && docker rm -fv hh-record
+          docker run -d -p 9999:9999 --name hh-record --restart always ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
