@@ -15,9 +15,9 @@ public class UploadServiceImpl implements UploadService {
 
     private final S3Service s3Service;
 
-    public String imageUpload(MultipartFile file) {
+    public String imageUpload(MultipartFile file, UploadFolder uploadFolder) {
         UploadUtils.validateFileType(file.getOriginalFilename());
-        String fileName = UploadUtils.createFileNameAndDirectory(file.getOriginalFilename());
+        String fileName = UploadUtils.createFileNameAndDirectory(file.getOriginalFilename(), uploadFolder);
 
         ObjectMetadata objectMetadata = new ObjectMetadata();
         objectMetadata.setContentLength(file.getSize());
@@ -31,9 +31,9 @@ public class UploadServiceImpl implements UploadService {
     }
 
     @Override
-    public void imageRemove(String fileUrl) {
+    public void imageRemove(String fileUrl, UploadFolder uploadFolder) {
         try {
-            s3Service.removeFile(fileUrl);
+            s3Service.removeFile(fileUrl, uploadFolder);
         } catch (Exception e) {
             throw new ValidationException(String.format("%s 파일을 삭제하는데 오류가 발생했습니다.", fileUrl));
         }

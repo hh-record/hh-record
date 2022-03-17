@@ -23,12 +23,12 @@ public class S3Service {
         return amazonS3Client.getResourceUrl(s3Component.getBucket(), fileName);
     }
 
-    public void removeFile(String fileUrl) {
-        amazonS3Client.deleteObject(new DeleteObjectRequest(s3Component.getBucket(), getFileKey(fileUrl)));
+    public void removeFile(String fileUrl, UploadFolder uploadFolder) {
+        amazonS3Client.deleteObject(new DeleteObjectRequest(s3Component.getBucket(), getFileKey(fileUrl, uploadFolder)));
     }
 
-    private String getFileKey(String fileUrl) {
-        int idx = fileUrl.indexOf("/USER");
+    private String getFileKey(String fileUrl, UploadFolder uploadFolder) {
+        int idx = fileUrl.indexOf("/" + uploadFolder);
         return fileUrl.substring(idx + 1);
     }
 

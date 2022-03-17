@@ -27,11 +27,6 @@ public class File extends BaseEntity {
         this.fileKey = fileKey;
     }
 
-    public void changeFile(String fileUrl) {
-        int idx = fileUrl.indexOf("/USER");
-        this.fileKey = fileUrl.substring(idx + 1);
-    }
-
     public static File of(Record record, String fileKey) {
         return new File(record, fileKey);
     }

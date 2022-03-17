@@ -22,9 +22,9 @@ public class UploadUtils {
         return uploadFolder + "/";
     }
 
-    public static String createFileNameAndDirectory(String originalFilename) {
+    public static String createFileNameAndDirectory(String originalFilename, UploadFolder uploadFolder) {
         String now = new SimpleDateFormat("yyyyMMddHmsS").format(new Date());
-        final String folder = createFolder(UploadFolder.USER);
+        final String folder = createFolder(uploadFolder);
         return folder.concat(now.concat(originalFilename));
     }
 }
