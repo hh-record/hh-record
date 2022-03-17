@@ -8,7 +8,6 @@ on:
 
 env:
   RESOURCE_FILE: src/main/resources
-  PATH: ~/jsTest
 
 jobs:
   build:
@@ -21,13 +20,16 @@ jobs:
         with:
           java-version: 11
 
+      - name: export variable
+        run: export DB_USERNAME=${{ secrets.USERNAME }} | export DB_PASSWORD=${{ secrets.PASSWORD }}
+
       - name: Create aws.yml file
         env:
           AWS_CREDENTIALS_ACCESS_KEY: ${{ secrets.AWS_CREDENTIALS_ACCESS_KEY }}
           AWS_CREDENTIALS_SECRET_KEY: ${{ secrets.AWS_CREDENTIALS_SECRET_KEY }}
         run: |
           echo $RESOURCE_FILE
-          echo "cloud.aws.credentials.accessKey=$AWS_CREDENTIALS_ACCESS_KEY\ncloud.aws.credentials.secretKey=$AWS_CREDENTIALS_SECRET_KEY" > $RESOURCE_FILE/application-aws.properties
+          echo "cloud.aws.credentials.access_key=$AWS_CREDENTIALS_ACCESS_KEY\ncloud.aws.credentials.secret_key=$AWS_CREDENTIALS_SECRET_KEY" > $RESOURCE_FILE/application-aws.properties
           cat $RESOURCE_FILE/application-aws.properties
 
       - name: Create email.yml file
@@ -45,18 +47,6 @@ jobs:
         run: |
           echo "google.auth.client_id=$CLIENT_ID\ngoogle.auth.client_secret=$CLIENT_SECRET\ngoogle.auth.grant_type=authorization_code\ngoogle.auth.base_url=https://www.googleapis.com\ngoogle.auth.token_url=/oauth2/v4/token\ngoogle.auth.profile_url=/oauth2/v3/userinfo" > $RESOURCE_FILE/application-google.properties
           cat $RESOURCE_FILE/application-google.properties
-
-      - name: Create rds.yml file
-        env:
-          URL: ${{ secrets.URL }}
-          DB_USERNAME: ${{ secrets.USERNAME }}
-          DB_PASSWORD: ${{ secrets.PASSWORD }}
-        run: |
-          echo "spring.datasource.url=$URL\nspring.datasource.username=$DB_USERNAME\nspring.datasource.password=$DB_PASSWORD" > $RESOURCE_FILE/application-rds.properties
-          cat $RESOURCE_FILE/application-aws.properties
-          cat $RESOURCE_FILE/application-email.properties
-          cat $RESOURCE_FILE/application-google.properties
-          cat $RESOURCE_FILE/application-rds.properties
 
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
@@ -80,5 +70,4 @@ jobs:
           key: ${{ secrets.AWS_PEM_KEY }}
           port: 22
           script: |
-            cp $RESOURCE_FILE/application-rds.properties $PATH/application-rds.properties
             ~/app/record-backend/shl/startRecordInstance.sh
