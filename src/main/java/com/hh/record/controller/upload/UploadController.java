@@ -19,8 +19,6 @@ public class UploadController {
     @ApiOperation(value = "이미지 업로드", notes = "일기, 멤버 이미지 파일 업로드")
     @PostMapping("/record-file/{uploadFolder}")
     public ApiResponse<String> recordImageUpload(@RequestPart MultipartFile file, @PathVariable UploadFolder uploadFolder) {
-        System.out.println("file : " + file);
-        System.out.println("uploadFolder : " + uploadFolder);
         return ApiResponse.success(uploadService.imageUpload(file, uploadFolder));
     }
 
