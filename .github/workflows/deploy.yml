@@ -27,7 +27,7 @@ jobs:
           AWS_CREDENTIALS_SECRET_KEY: ${{ secrets.AWS_CREDENTIALS_SECRET_KEY }}
         run: |
           echo $RESOURCE_FILE
-          echo "cloud.aws.credentials.access_key=$AWS_CREDENTIALS_ACCESS_KEY\ncloud.aws.credentials.secret_key=$AWS_CREDENTIALS_SECRET_KEY" > $RESOURCE_FILE/application-aws.properties
+          echo "cloud.aws.credentials.accessKey=$AWS_CREDENTIALS_ACCESS_KEY\ncloud.aws.credentials.secretKey=$AWS_CREDENTIALS_SECRET_KEY" > $RESOURCE_FILE/application-aws.properties
           cat $RESOURCE_FILE/application-aws.properties
 
       - name: Create email.yml file
@@ -52,7 +52,7 @@ jobs:
           DB_USERNAME: ${{ secrets.USERNAME }}
           DB_PASSWORD: ${{ secrets.PASSWORD }}
         run: |
-          echo "spring.datasource.hikari.jdbc-url=$URL\nspring.datasource.hikari.username=$DB_USERNAME\nspring.datasource.hikari.password=$DB_PASSWORD" > $RESOURCE_FILE/application-rds.properties
+          echo "spring.datasource.url=$URL\nspring.datasource.username=$DB_USERNAME\nspring.datasource.password=$DB_PASSWORD" > $RESOURCE_FILE/application-rds.properties
           cat $RESOURCE_FILE/application-aws.properties
           cat $RESOURCE_FILE/application-email.properties
           cat $RESOURCE_FILE/application-google.properties
