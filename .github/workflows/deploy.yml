@@ -9,6 +9,8 @@ on:
 
 env:
   RESOURCE_FILE: src/main/resources
+  DB_USERNAME: ${{ secrets.USERNAME }}
+  DB_PASSWORD: ${{ secrets.PASSWORD }}
 
 jobs:
   build:
@@ -21,8 +23,6 @@ jobs:
         with:
           java-version: 11
 
-      - name: export variable
-        run: export DB_USERNAME=${{ secrets.USERNAME }} | export DB_PASSWORD=${{ secrets.PASSWORD }}
       - name: echo DB_USERNAME
         run: echo DB_USERNAME
       - name: echo DB_PASSWORD
