@@ -23,11 +23,6 @@ jobs:
         with:
           java-version: 11
 
-      - name: echo DB_USERNAME
-        run: echo DB_USERNAME
-      - name: echo DB_PASSWORD
-        run: echo DB_PASSWORD
-
       - name: Create aws.yml file
         env:
           AWS_CREDENTIALS_ACCESS_KEY: ${{ secrets.AWS_CREDENTIALS_ACCESS_KEY }}
@@ -49,8 +44,12 @@ jobs:
         env:
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
           CLIENT_SECRET: ${{ secrets.CLIENT_SECRET }}
+          GRANT_TYPE: authorization_code
+          BASE_URL: https://www.googleapis.com
+          TOKEN_URL: /oauth2/v4/token
+          PROFILE_URL: /oauth2/v3/userinfo
         run: |
-          echo "google.auth.client_id=$CLIENT_ID\ngoogle.auth.client_secret=$CLIENT_SECRET\ngoogle.auth.grant_type=authorization_code\ngoogle.auth.base_url=https://www.googleapis.com\ngoogle.auth.token_url=/oauth2/v4/token\ngoogle.auth.profile_url=/oauth2/v3/userinfo" > $RESOURCE_FILE/application-google.properties
+          echo "google.auth.client_id=$CLIENT_ID\ngoogle.auth.client_secret=$CLIENT_SECRET\ngoogle.auth.grant_type=$GRANT_TYPE\ngoogle.auth.base_url=$BASE_URL\ngoogle.auth.token_url=$TOKEN_URL\ngoogle.auth.profile_url=$PROFILE_URL" > $RESOURCE_FILE/application-google.properties
           cat $RESOURCE_FILE/application-google.properties
 
       - name: Grant execute permission for gradlew
