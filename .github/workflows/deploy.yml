@@ -29,7 +29,7 @@ jobs:
           AWS_CREDENTIALS_SECRET_KEY: ${{ secrets.AWS_CREDENTIALS_SECRET_KEY }}
         run: |
           echo $RESOURCE_FILE
-          echo "cloud.aws.credentials.accessKey=$AWS_CREDENTIALS_ACCESS_KEY\ncloud.aws.credentials.secretKey=$AWS_CREDENTIALS_SECRET_KEY" > $RESOURCE_FILE/application-aws.properties
+          echo -e "cloud.aws.credentials.accessKey=$AWS_CREDENTIALS_ACCESS_KEY\ncloud.aws.credentials.secretKey=$AWS_CREDENTIALS_SECRET_KEY" > $RESOURCE_FILE/application-aws.properties
           cat $RESOURCE_FILE/application-aws.properties
 
       - name: Create email.yml file
@@ -37,7 +37,7 @@ jobs:
           MAIL_USERNAME: ${{ secrets.MAIL_USERNAME }}
           MAIL_PASSWORD: ${{ secrets.MAIL_PASSWORD }}
         run: |
-          echo "spring.mail.username=$MAIL_USERNAME\nspring.mail.password=$MAIL_PASSWORD" > $RESOURCE_FILE/application-email.properties
+          echo -e "spring.mail.username=$MAIL_USERNAME\nspring.mail.password=$MAIL_PASSWORD" > $RESOURCE_FILE/application-email.properties
           cat $RESOURCE_FILE/application-email.properties
 
       - name: Create google.yml file
@@ -49,7 +49,7 @@ jobs:
           TOKEN_URL: /oauth2/v4/token
           PROFILE_URL: /oauth2/v3/userinfo
         run: |
-          echo "google.auth.client_id=$CLIENT_ID\ngoogle.auth.client_secret=$CLIENT_SECRET\ngoogle.auth.grant_type=$GRANT_TYPE\ngoogle.auth.base_url=$BASE_URL\ngoogle.auth.token_url=$TOKEN_URL\ngoogle.auth.profile_url=$PROFILE_URL" > $RESOURCE_FILE/application-google.properties
+          echo -e "google.auth.client_id=$CLIENT_ID\ngoogle.auth.client_secret=$CLIENT_SECRET\ngoogle.auth.grant_type=$GRANT_TYPE\ngoogle.auth.base_url=$BASE_URL\ngoogle.auth.token_url=$TOKEN_URL\ngoogle.auth.profile_url=$PROFILE_URL" > $RESOURCE_FILE/application-google.properties
           cat $RESOURCE_FILE/application-google.properties
 
       - name: Grant execute permission for gradlew
