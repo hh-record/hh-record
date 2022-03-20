@@ -1,5 +1,5 @@
 ###
-POST {{host_api}}/auth/google
+POST {{host_api}}/hh-record-intro/google/login
 Content-Type: application/json
 
 {

@@ -10,12 +10,11 @@ import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("hh-record-intro")
 public class AuthController {
 
     private final AuthService authService;
 
-    @PostMapping("/google/login")
+    @PostMapping("hh-record-intro/google/login")
     public ApiResponse<String> googleAuthentication(@Valid @RequestBody AuthRequest request) {
         return ApiResponse.success(authService.googleAuthentication(request));
     }
