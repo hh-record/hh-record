@@ -29,7 +29,7 @@ jobs:
           AWS_CREDENTIALS_SECRET_KEY: ${{ secrets.AWS_CREDENTIALS_SECRET_KEY }}
         run: |
           echo $RESOURCE_FILE
-          echo "cloud.aws.credentials.access_key=$AWS_CREDENTIALS_ACCESS_KEY\ncloud.aws.credentials.secret_key=$AWS_CREDENTIALS_SECRET_KEY" > $RESOURCE_FILE/application-aws.properties
+          echo "cloud.aws.credentials.accessKey=$AWS_CREDENTIALS_ACCESS_KEY\ncloud.aws.credentials.secretKey=$AWS_CREDENTIALS_SECRET_KEY" > $RESOURCE_FILE/application-aws.properties
           cat $RESOURCE_FILE/application-aws.properties
 
       - name: Create email.yml file

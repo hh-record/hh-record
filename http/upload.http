@@ -1,5 +1,5 @@
 ### file upload
-POST {{host_api}}/hh-record/record-file
+POST {{host_api}}/hh-record/record-file/RECORD
 Content-Type: multipart/form-data; boundary=WebAppBoundary
 
 --WebAppBoundary
