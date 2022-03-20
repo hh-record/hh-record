@@ -2,7 +2,9 @@ name: CI/CD Docker
 
 on:
   push:
-    branches: [ docker ]
+    branches:
+      - master
+      - develop
 env:
   DOCKER_IMAGE: ghcr.io/hh-record/hh-record
   VERSION: ${{ github.sha }}
