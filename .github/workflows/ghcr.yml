@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - develop
+      - docker
 env:
   DOCKER_IMAGE: ghcr.io/hh-record/hh-record
   VERSION: ${{ github.sha }}
