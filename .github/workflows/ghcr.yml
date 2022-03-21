@@ -84,10 +84,10 @@ jobs:
         with:
           host: 3.36.30.114
           username: ec2-user
-          password: ${{ secrets.AWS_PEM_KEY }}
+          password: ${{ secrets.TEST_SERVER_PASSWORD }}
           port: 22
           script: |
-            ~/docker_test/deploy-docker.sh
+            ~/docker_test/deploy/deploy-docker.sh
         
 
 #  deploy:
