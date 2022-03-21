@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "id": "admin1",
-  "email": "test@naver.com",
+  "email": "tnswh2023@naver.com",
   "password": "1111",
   "userName": "test",
   "phoneNumber": "ssss"
@@ -34,9 +34,10 @@ Content-Type: application/json
 AUTH_TOKEN: {{AUTH_TOKEN}}
 
 {
-  "email": "test@naver.com",
-  "userName": "test",
-  "phoneNumber": "ssss"
+  "userName": "admin1",
+  "phoneNumber": "01011112222",
+  "isPrivate": false,
+  "profileImgUrl": "https://hh-record-project.s3.ap-northeast-2.amazonaws.com/USER/2022030115434274915f2ce73b4deef1ade05f6ca68c4c6e6fc786fa3a8df532973609de10ea9a054.jpg"
 }
 
 ### my page 삭제

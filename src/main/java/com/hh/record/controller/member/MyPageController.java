@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/hh-record/my-page")
@@ -28,7 +30,7 @@ public class MyPageController {
     @ApiOperation("내 정보 수정하기")
     @Auth
     @PutMapping(value = "/", produces = "application/json")
-    public ApiResponse<String> updateMember(@MemberId Long memberId, @RequestBody UpdateMemberRequestDTO requestDTO) {
+    public ApiResponse<String> updateMember(@MemberId Long memberId, @Valid @RequestBody UpdateMemberRequestDTO requestDTO) {
         memberService.updateMember(memberId, requestDTO);
         return ApiResponse.OK;
     }
