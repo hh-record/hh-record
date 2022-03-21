@@ -82,7 +82,7 @@ jobs:
       - name: ssh
         uses: appleboy/ssh-action@master
         with:
-          host: 3.36.30.114
+          host: 115.71.238.146
           username: ec2-user
           password: ${{ secrets.TEST_SERVER_PASSWORD }}
           port: 22
