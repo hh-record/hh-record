@@ -3,6 +3,8 @@ name: CI/CD Docker
 on:
   push:
     branches:
+      - master
+      - develop
       - docker
 env:
   DOCKER_IMAGE: ghcr.io/hh-record/hh-record
@@ -54,42 +56,37 @@ jobs:
           cat $RESOURCE_FILE/application-google.properties
           cat $RESOURCE_FILE/application-rds.properties  
 
-      - name: Set up docker buildx
-        id: buildx
-        uses: docker/setup-buildx-action@v1
-      - name: Cache docker layers
-        uses: actions/cache@v2
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ env.VERSION }} # runner 설정에서 읽어들일거에요.
-          restore-keys: |
-            ${{ runner.os }}-buildx-
       - name: Login to ghcr
         uses: docker/login-action@v1
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: hh-record
           password: ${{ secrets.CR_PAT }}
-      - name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          builder: ${{ steps.buildx.outputs.name }}
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
 
-  deploy:
-    needs: build
-    name: Deploy
-    runs-on: [ self-hosted, label-development ]
-    steps:
-      - name: Login to ghcr
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.CR_PAT }}
-      - name: Docker run
+      - name: docker image build and push
         run: |
-          docker ps -q --filter "name=hh-record" | grep -q . && docker stop hh-record && docker rm -fv hh-record
-          docker run -d -p 9999:9999 --name hh-record --restart always ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
+          docker build -t $DOCKER_IMAGE:$VERSION .
+          docker tag $DOCKER_IMAGE:$VERSION $DOCKER_IMAGE:latest
+          docker push $DOCKER_IMAGE:$VERSION
+          docker push $DOCKER_IMAGE:latest
+          echo -e "${{ secrets.CR_PAT }}" > deploy/GIT-TOKEN.txt
+          cat deploy/GIT-TOKEN.txt
+
+      - name: copy file
+        uses: appleboy/scp-action@master
+        with:
+          host: 3.36.30.114
+          username: ec2-user
+          key: ${{ secrets.AWS_PEM_KEY }}
+          port: 22
+          source: "./deploy"
+          target: "~/docker_test"
+      - name: ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: 3.36.30.114
+          username: ec2-user
+          key: ${{ secrets.AWS_PEM_KEY }}
+          port: 22
+          script: |
+            ~/docker_test/deploy/deploy-docker.sh
