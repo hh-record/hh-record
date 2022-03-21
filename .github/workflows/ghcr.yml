@@ -91,5 +91,5 @@ jobs:
           password: ${{ secrets.CR_PAT }}
       - name: Docker run
         run: |
-          docker ps -q --filter "name=hh-record" | grep -q . && docker stop hh-record && docker rm -fv hh-record
-          docker run -d -p 9999:9999 --name hh-record --restart always ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}
+          docker stop hh-record && docker rm -fv hh-record
+          docker run -d -p 8888:8888 --name hh-record --restart always ${{ env.DOCKER_IMAGE }}:${{ env.VERSION }}

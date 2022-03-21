@@ -5,7 +5,7 @@ WORKDIR $APP_HOME
 COPY ./ ./
 RUN chmod +x gradlew
 RUN ./gradlew clean bootJar
-ENTRYPOINT ["java", "-jar", "build/libs/backend-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=dev"]
+ENTRYPOINT ["java", "-jar", "build/libs/backend-0.0.1-SNAPSHOT.jar", "--spring.profiles.active=local"]
 
 #FROM adoptopenjdk/openjdk11 AS BUILD
 #ENV APP_HOME=/usr/app
