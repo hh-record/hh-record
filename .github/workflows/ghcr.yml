@@ -68,7 +68,7 @@ jobs:
           docker push $DOCKER_IMAGE:$VERSION
           docker push $DOCKER_IMAGE:latest
           echo -e "${{ secrets.CR_PAT }}" > deploy/GIT-TOKEN.txt
-          cat deploy/GIT-TOKEN
+          cat deploy/GIT-TOKEN.txt
         
 
 #  deploy:
