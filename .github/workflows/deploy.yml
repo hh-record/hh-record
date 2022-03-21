@@ -3,8 +3,6 @@ name: Deploy hh-record
 on:
   push:
     branches:
-      - master
-      - develop
       - deploy
 
 env:

@@ -3,6 +3,8 @@ name: CI/CD Docker
 on:
   push:
     branches:
+      - master
+      - develop
       - docker
 env:
   DOCKER_IMAGE: ghcr.io/hh-record/hh-record
