@@ -88,20 +88,3 @@ jobs:
           port: 22
           script: |
             ~/docker_test/deploy/deploy-docker.sh
-        
-
-#  deploy:
-#    needs: build
-#    name: Deploy
-#    runs-on: [ self-hosted, label-development ]
-#    steps:
-#      - name: Login to ghcr
-#        uses: docker/login-action@v1
-#        with:
-#          registry: ghcr.io
-#          username: hh-record
-#          password: ${{ secrets.CR_PAT }}
-#      - name: Docker run
-#        run: |
-#          docker stop hh-record && docker rm -fv hh-record
-#          docker run -d -p 8888:8888 --name hh-record --restart always $DOCKER_IMAGE:$VERSION
