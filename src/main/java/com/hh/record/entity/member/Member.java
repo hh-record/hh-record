@@ -110,4 +110,8 @@ public class Member extends BaseEntity {
                 .build();
     }
 
+    public void changeIsPrivate(boolean isPrivate) {
+        this.isPrivate = isPrivate;
+    }
+
 }
