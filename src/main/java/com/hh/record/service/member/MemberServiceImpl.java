@@ -3,6 +3,7 @@ package com.hh.record.service.member;
 import com.hh.record.config.exception.errorCode.NotFoundException;
 import com.hh.record.config.exception.errorCode.ValidationException;
 import com.hh.record.dto.certification.CertificationRequestDTO;
+import com.hh.record.dto.member.MemberIsPrivateDTO;
 import com.hh.record.dto.member.request.SelectMemberIdRequestDTO;
 import com.hh.record.dto.member.request.UpdateMemberRequestDTO;
 import com.hh.record.dto.member.response.MemberInfoResponse;
@@ -115,6 +116,14 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new NotFoundException(String.format("존재하지 않는 회원 %s 입니다.", memberId)));
         member.unfollowMember(targetMember);
+    }
+
+    @Transactional
+    @Override
+    public void updateIsPrivateMember(Long memberId, boolean isPrivate) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 회원입니다."));
+        member.changeIsPrivate(isPrivate);
     }
 
 }

@@ -3,6 +3,7 @@ package com.hh.record.controller.member;
 import com.hh.record.config.interceptor.Auth;
 import com.hh.record.config.interceptor.MemberId;
 import com.hh.record.controller.ApiResponse;
+import com.hh.record.dto.member.MemberIsPrivateDTO;
 import com.hh.record.dto.member.MemberPasswordDTO;
 import com.hh.record.dto.member.request.UpdateMemberRequestDTO;
 import com.hh.record.dto.member.response.MemberInfoResponse;
@@ -56,6 +57,14 @@ public class MyPageController {
     @DeleteMapping(value = "/", produces = "application/json")
     public ApiResponse<String> deleteMember(@MemberId Long memberId) {
         memberService.deleteMember(memberId);
+        return ApiResponse.OK;
+    }
+
+    @ApiOperation("프로필 공개 / 비공개 설정")
+    @Auth
+    @DeleteMapping(value = "/isPrivate", produces = "application/json")
+    public ApiResponse<String> updateIsPrivateMember(@MemberId Long memberId, @RequestBody MemberIsPrivateDTO privateDTO) {
+        memberService.updateIsPrivateMember(memberId, privateDTO.isPrivate());
         return ApiResponse.OK;
     }
 

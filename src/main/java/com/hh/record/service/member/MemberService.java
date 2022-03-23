@@ -30,4 +30,5 @@ public interface MemberService {
 
     void unfollowMember(Long memberSeq, Long memberId);
 
+    void updateIsPrivateMember(Long memberId, boolean isPrivate);
 }
