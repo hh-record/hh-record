@@ -6,6 +6,7 @@ import com.hh.record.entity.member.Member;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.security.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -13,6 +14,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class AuthInterceptor implements HandlerInterceptor {
@@ -36,6 +38,7 @@ public class AuthInterceptor implements HandlerInterceptor {
         }
         //claims 체크 false 가 나오면 애러 처리
         String token = request.getHeader("AUTH_TOKEN");
+        log.info(String.format("token = %s", token));
         if (token == null || token.length() == 0) {
             throw new NotFoundException("토큰이 존재하지 않습니다.");
         }
