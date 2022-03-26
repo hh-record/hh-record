@@ -38,10 +38,10 @@ public class JWTUtil {
         return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
     }
 
-    // Request의 Header에서 token 값을 가져옵니다. "AUTH_TOKEN" : "TOKEN 값"
+    // Request의 Header에서 token 값을 가져옵니다. "Authorization" : "TOKEN 값"
     public String resolveToken(HttpServletRequest request) {
         String token = null;
-        Cookie cookie = WebUtils.getCookie(request, "AUTH_TOKEN");
+        Cookie cookie = WebUtils.getCookie(request, "Authorization");
         if(cookie != null) token = cookie.getValue();
         return token;
     }

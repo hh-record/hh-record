@@ -19,19 +19,19 @@ Content-Type: application/json
   "password": "1111"
 }
 > {%
-client.global.set('AUTH_TOKEN', response.body.data)
-client.log(client.global.get('AUTH_TOKEN'));
+client.global.set('Authorization', response.body.data)
+client.log(client.global.get('Authorization'));
  %}
 
 ### my-page
 GET {{host_api}}/hh-record/my-page/
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 
 ### my page 수정
 PUT {{host_api}}/hh-record/my-page/
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 
 {
   "userName": "admin1",
@@ -43,12 +43,12 @@ AUTH_TOKEN: {{AUTH_TOKEN}}
 ### my page 삭제
 DELETE {{host_api}}/hh-record/my-page/
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 
 ### 현재 비밀번호 확인
 POST {{host_api}}/hh-record/my-page/password-status
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 
 {
   "password": "1111"
@@ -57,7 +57,7 @@ AUTH_TOKEN: {{AUTH_TOKEN}}
 ### 비밀번호 변경
 POST {{host_api}}/hh-record/my-page/password
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 
 {
   "password" : "1111"
@@ -82,7 +82,7 @@ Content-Type: application/json
 
 ### follow
 POST {{host_api}}/hh-record/follow
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 Content-Type: application/json
 
 {
@@ -91,7 +91,7 @@ Content-Type: application/json
 
 ### unfollow
 POST {{host_api}}/hh-record/unfollow
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 Content-Type: application/json
 
 {

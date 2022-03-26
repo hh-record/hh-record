@@ -1,18 +1,18 @@
 ### 일기 리스트
 GET {{host_api}}/hh-record/records-main?search=ss&code=s&date=2022-03-06
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 
 ### 일기 리스트
 GET {{host_api}}/hh-record/records-main
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 
 
 ### 일기 생성
 POST {{host_api}}/hh-record/records
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 
 {
   "thumbnailUrl": "sss",
@@ -26,7 +26,7 @@ AUTH_TOKEN: {{AUTH_TOKEN}}
 ### 일기 수정
 PUT {{host_api}}/hh-record/records/1
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 
 {
   "thumbnailUrl": "sss",
@@ -38,7 +38,7 @@ AUTH_TOKEN: {{AUTH_TOKEN}}
 ### 일기 파일 수정
 PUT {{host_api}}/hh-record/records/file/1
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 
 {
   "fileList": ["changeFile1", "changeFile2"]
@@ -47,14 +47,14 @@ AUTH_TOKEN: {{AUTH_TOKEN}}
 ### 일기 상세보기
 POST {{host_api}}/hh-record/records/1
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 
 ### 일기 달력
 GET {{host_api}}/hh-record/records-calendar?year=2022&month=3
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
 
 ### 오늘의 주제 불러오기
 GET {{host_api}}/hh-record/records-theme
 Content-Type: application/json
-AUTH_TOKEN: {{AUTH_TOKEN}}
+Authorization: {{Authorization}}
