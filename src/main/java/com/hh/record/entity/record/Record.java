@@ -40,10 +40,11 @@ public class Record extends BaseEntity {
     @Column(columnDefinition = "varchar(255) default 'N'")
     private String themeUse;
 
-    private Boolean isPrivate;
+    @Enumerated(EnumType.STRING)
+    private IsPrivate isPrivate;
 
     @Builder
-    public Record(Member member, String thumbnailUrl, String title, String content, Boolean isPrivate, String themeUse) {
+    public Record(Member member, String thumbnailUrl, String title, String content, IsPrivate isPrivate, String themeUse) {
         this.member = member;
         this.thumbnailUrl = thumbnailUrl;
         this.title = title;
@@ -57,11 +58,12 @@ public class Record extends BaseEntity {
         this.fileList.addAll(fileEntityList);
     }
 
-    public void changeRecord(String title, String content, String fileUrl, String themeUse) {
+    public void changeRecord(String title, String content, String fileUrl, String themeUse, IsPrivate isPrivate) {
         this.title = title;
         this.content = content;
         this.thumbnailUrl = fileUrl;
         this.themeUse = themeUse;
+        this.isPrivate = isPrivate;
     }
 
     public void changeFile(List<String> fileList) {

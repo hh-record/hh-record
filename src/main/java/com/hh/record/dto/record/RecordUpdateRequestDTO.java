@@ -1,5 +1,6 @@
 package com.hh.record.dto.record;
 
+import com.hh.record.entity.record.IsPrivate;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,5 +24,7 @@ public class RecordUpdateRequestDTO {
 
     @NotBlank
     private String themeUse;
+
+    private IsPrivate isPrivate;
 
 }
