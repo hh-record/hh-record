@@ -1,7 +1,7 @@
 package com.hh.record.dto.record;
 
 import com.hh.record.entity.member.Member;
-import com.hh.record.entity.Record;
+import com.hh.record.entity.record.Record;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

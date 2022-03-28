@@ -1,5 +1,7 @@
-package com.hh.record.entity;
+package com.hh.record.entity.record;
 
+import com.hh.record.entity.BaseEntity;
+import com.hh.record.entity.File;
 import com.hh.record.entity.member.Member;
 import lombok.*;
 

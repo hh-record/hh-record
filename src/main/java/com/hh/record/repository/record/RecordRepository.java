@@ -1,7 +1,6 @@
 package com.hh.record.repository.record;
 
-import com.hh.record.entity.Record;
-import org.apache.el.stream.Optional;
+import com.hh.record.entity.record.Record;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

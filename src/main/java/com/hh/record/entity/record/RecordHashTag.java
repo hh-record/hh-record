@@ -1,5 +1,6 @@
-package com.hh.record.entity;
+package com.hh.record.entity.record;
 
+import com.hh.record.entity.BaseEntity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
