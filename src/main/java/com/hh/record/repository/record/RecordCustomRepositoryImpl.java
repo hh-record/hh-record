@@ -2,7 +2,7 @@ package com.hh.record.repository.record;
 
 import com.hh.record.config.exception.errorCode.NotFoundException;
 import com.hh.record.dto.record.RecordResponseDTO;
-import com.hh.record.entity.QRecord;
+import com.hh.record.entity.record.QRecord;
 import com.hh.record.entity.record.Record;
 import com.hh.record.entity.Theme;
 import com.hh.record.repository.theme.ThemeRepository;
@@ -18,8 +18,8 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.hh.record.entity.QFile.file;
-import static com.hh.record.entity.QRecord.record;
-import static com.hh.record.entity.QRecordHashTag.recordHashTag;
+import static com.hh.record.entity.record.QRecord.record;
+import static com.hh.record.entity.record.QRecordHashTag.recordHashTag;
 
 @RequiredArgsConstructor
 public class RecordCustomRepositoryImpl implements RecordCustomRepository {

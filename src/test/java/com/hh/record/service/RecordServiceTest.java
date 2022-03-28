@@ -4,6 +4,7 @@ import com.hh.record.dto.record.CreateRecordRequestDto;
 import com.hh.record.dto.record.RecordResponseDTO;
 import com.hh.record.dto.record.RecordSearchRequestDTO;
 import com.hh.record.entity.File;
+import com.hh.record.entity.record.IsPrivate;
 import com.hh.record.entity.record.RecordHashTag;
 import com.hh.record.entity.member.Member;
 import com.hh.record.entity.member.MemberProvider;
@@ -56,8 +57,8 @@ public class RecordServiceTest {
         Member member = new Member("admin1", "admin1", "test@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
         memberRepository.save(member);
 
-        Record record1 = new Record(member, "sss", "title1", "content1", Boolean.TRUE, "N");
-        Record record2 = new Record(member, "sss", "title2", "content2", Boolean.TRUE, "N");
+        Record record1 = new Record(member, "sss", "title1", "content1", IsPrivate.ALL_PUBLIC, "N");
+        Record record2 = new Record(member, "sss", "title2", "content2", IsPrivate.PRIVATE, "N");
         record2.addFile(Arrays.asList("c", "d"));
         recordRepository.saveAll(Arrays.asList(record1, record2));
 
@@ -78,7 +79,7 @@ public class RecordServiceTest {
 
         List<String> files = Arrays.asList("file1", "file2");
         List<String> hashTagList = Arrays.asList("좋은날", "생일");
-        CreateRecordRequestDto requestDto = CreateRecordRequestDto.testInstance("thumbnailUrl", "title", "content", files, hashTagList, null);
+        CreateRecordRequestDto requestDto = CreateRecordRequestDto.testInstance("thumbnailUrl", "title", "content", files, hashTagList, null, IsPrivate.FRIEND_PUBLIC);
 
         // when
         recordService.createRecord(member.getSeq(), requestDto);
