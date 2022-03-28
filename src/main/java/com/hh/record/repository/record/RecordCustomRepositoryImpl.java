@@ -3,7 +3,7 @@ package com.hh.record.repository.record;
 import com.hh.record.config.exception.errorCode.NotFoundException;
 import com.hh.record.dto.record.RecordResponseDTO;
 import com.hh.record.entity.QRecord;
-import com.hh.record.entity.Record;
+import com.hh.record.entity.record.Record;
 import com.hh.record.entity.Theme;
 import com.hh.record.repository.theme.ThemeRepository;
 import com.querydsl.core.BooleanBuilder;

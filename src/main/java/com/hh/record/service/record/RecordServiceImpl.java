@@ -5,12 +5,11 @@ import com.hh.record.dto.record.*;
 import com.hh.record.dto.theme.ThemeInfoResponse;
 import com.hh.record.entity.Theme;
 import com.hh.record.entity.member.Member;
-import com.hh.record.entity.Record;
+import com.hh.record.entity.record.Record;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.repository.record.RecordRepository;
 import com.hh.record.repository.theme.ThemeRepository;
 import lombok.RequiredArgsConstructor;
-import org.apache.el.stream.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

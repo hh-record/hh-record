@@ -1,7 +1,7 @@
 package com.hh.record.repository.record;
 
 import com.hh.record.dto.record.RecordResponseDTO;
-import com.hh.record.entity.Record;
+import com.hh.record.entity.record.Record;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

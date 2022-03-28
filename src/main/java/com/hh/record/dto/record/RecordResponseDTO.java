@@ -1,8 +1,8 @@
 package com.hh.record.dto.record;
 
 import com.hh.record.entity.File;
-import com.hh.record.entity.Record;
-import com.hh.record.entity.RecordHashTag;
+import com.hh.record.entity.record.Record;
+import com.hh.record.entity.record.RecordHashTag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
