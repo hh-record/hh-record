@@ -1,6 +1,7 @@
 package com.hh.record.repository.record;
 
 import com.hh.record.dto.record.RecordResponseDTO;
+import com.hh.record.entity.record.IsPrivate;
 import com.hh.record.entity.record.Record;
 
 import java.time.LocalDate;
@@ -10,7 +11,7 @@ import java.util.Optional;
 
 public interface RecordCustomRepository {
 
-    List<Record> retrieveRecord(Long memberId, String code, String search, LocalDate date);
+    List<Record> retrieveRecord(Long memberId, String code, String search, LocalDate date, List<IsPrivate> isPrivateList);
 
     Optional<Record> findByMember_SeqAndSeq(Long memberId, Long recordId);
 

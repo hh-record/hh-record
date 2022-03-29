@@ -1,6 +1,7 @@
 package com.hh.record.dto.record;
 
 import com.hh.record.entity.File;
+import com.hh.record.entity.Theme;
 import com.hh.record.entity.record.IsPrivate;
 import com.hh.record.entity.record.Record;
 import com.hh.record.entity.record.RecordHashTag;
@@ -52,6 +53,22 @@ public class RecordResponseDTO {
                 .hashTagList(record.getRecordHashTagList().stream().map(RecordHashTag::getHashTag).collect(Collectors.toList()))
                 .themeUse(record.getThemeUse())
                 .isPrivate(record.getIsPrivate())
+                .build();
+    }
+
+    public static RecordResponseDTO recordWithTheme(Record record, Theme theme) {
+        return RecordResponseDTO.builder()
+                .record_seq(record.getSeq())
+                .thumbnailUrl(record.getThumbnailUrl())
+                .title(record.getTitle())
+                .content(record.getContent())
+                .regDate(record.getRegDate().toString())
+                .modDate(record.getModDate().toString())
+                .fileUrl(record.getFileList().stream().map(File::getFileKey).collect(Collectors.toList()))
+                .hashTagList(record.getRecordHashTagList().stream().map(RecordHashTag::getHashTag).collect(Collectors.toList()))
+                .themeUse(record.getThemeUse())
+                .isPrivate(record.getIsPrivate())
+                .themeContent(theme == null ? null : theme.getContent())
                 .build();
     }
 

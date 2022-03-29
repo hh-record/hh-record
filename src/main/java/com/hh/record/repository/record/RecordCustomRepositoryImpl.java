@@ -2,14 +2,17 @@ package com.hh.record.repository.record;
 
 import com.hh.record.config.exception.errorCode.NotFoundException;
 import com.hh.record.dto.record.RecordResponseDTO;
+import com.hh.record.entity.record.IsPrivate;
 import com.hh.record.entity.record.QRecord;
 import com.hh.record.entity.record.Record;
 import com.hh.record.entity.Theme;
 import com.hh.record.repository.theme.ThemeRepository;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.util.ObjectUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -33,14 +36,15 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
      * default_batch_fetch_size: 1000 -> n+1 문제 해결
      */
     @Override
-    public List<Record> retrieveRecord(Long memberId, String code, String search, LocalDate date) {
+    public List<Record> retrieveRecord(Long memberId, String code, String search, LocalDate date, List<IsPrivate> isPrivateList) {
         BooleanBuilder booleanBuilder = searchBuilder(code, search);
         return jpaQueryFactory.selectFrom(record).distinct()
                 .leftJoin(record.fileList, file)
                 .leftJoin(record.recordHashTagList, recordHashTag)
                 .where(
                         record.member.seq.eq(memberId).and(booleanBuilder),
-                        eqDate(date)
+                        eqDate(date),
+                        eqIsPrivateList(isPrivateList)
                 )
                 .orderBy(record.seq.desc())
                 .fetch();
@@ -125,6 +129,13 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
             return null;
         }
         return record.member.seq.eq(memberId);
+    }
+
+    private Predicate eqIsPrivateList(List<IsPrivate> isPrivateList) {
+        if (ObjectUtils.isEmpty(isPrivateList)) {
+            return null;
+        }
+        return record.isPrivate.in(isPrivateList);
     }
 
 }
