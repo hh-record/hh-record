@@ -3,6 +3,7 @@ package com.hh.record.service;
 import com.hh.record.config.exception.errorCode.NotFoundException;
 import com.hh.record.config.exception.errorCode.ValidationException;
 import com.hh.record.dto.record.RecordResponseDTO;
+import com.hh.record.dto.record.RecordSearchRequestDTO;
 import com.hh.record.entity.Theme;
 import com.hh.record.entity.member.Member;
 import com.hh.record.entity.member.MemberProvider;
@@ -22,6 +23,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -106,6 +108,7 @@ public class RecordFollowServiceTest {
         Record record = new Record(member2, "sss", "title1", "content1", IsPrivate.ALL_PUBLIC, "Y");
         recordRepository.save(record);
 
+        // when & then
         assertThatThrownBy(
                 () -> recordFollowService.selectOneRecord(member1.getSeq(), record.getSeq())
         ).isInstanceOf(NotFoundException.class);
@@ -122,8 +125,57 @@ public class RecordFollowServiceTest {
         Record record = new Record(member2, "sss", "title1", "content1", IsPrivate.ALL_PUBLIC, "Y");
         recordRepository.save(record);
 
+        // when & then
         assertThatThrownBy(
                 () -> recordFollowService.selectOneRecord(member1.getSeq(), record.getSeq())
+        ).isInstanceOf(ValidationException.class);
+    }
+
+    @DisplayName("1번이 2번의 게시글 리스트를 보려고 한다. - PRIVATE 이것은 가지고 올 수 없음")
+    @Test
+    void retrieveRecord1() {
+        // given
+        Member member1 = this.createMember("a1", "asd2@naver.com");
+        Member member2 = this.createMember("aa2", "sdf@naver.com");
+        member1.followMember(member2);
+        memberRepository.saveAll(Arrays.asList(member1, member2));
+
+        Record record1 = new Record(member2, "sss", "title1", "content1", IsPrivate.PRIVATE, "Y");
+        Record record2 = new Record(member2, "sss", "title2", "content1", IsPrivate.PRIVATE, "Y");
+        Record record3 = new Record(member2, "sss", "title3", "content1", IsPrivate.FRIEND_PUBLIC, "Y");
+        Record record4 = new Record(member2, "sss", "title4", "content1", IsPrivate.FRIEND_PUBLIC, "Y");
+        recordRepository.saveAll(Arrays.asList(record1, record2, record3, record4));
+        Theme theme = new Theme(null, "오늘의 주제는 ~~~", LocalDate.now().getMonthValue(), LocalDate.now().getDayOfMonth());
+        themeRepository.save(theme);
+
+        RecordSearchRequestDTO requestDTO = new RecordSearchRequestDTO(null, null, null);
+
+        // when
+        List<RecordResponseDTO> responseList = recordFollowService.retrieveRecord(member1.getSeq(), member2.getSeq(), requestDTO);
+
+        // then
+        assertThat(responseList).hasSize(2);
+    }
+
+    @DisplayName("1번이 2번의 게시글 리스트를 보려고 한다. - 2번을 팔로우 하지 않았을 경우 예외처리")
+    @Test
+    void retrieveRecord2() {
+        // given
+        Member member1 = this.createMember("a1", "asd2@naver.com");
+        Member member2 = this.createMember("aa2", "sdf@naver.com");
+        memberRepository.saveAll(Arrays.asList(member1, member2));
+
+        Record record1 = new Record(member2, "sss", "title1", "content1", IsPrivate.PRIVATE, "Y");
+        Record record2 = new Record(member2, "sss", "title2", "content1", IsPrivate.PRIVATE, "Y");
+        Record record3 = new Record(member2, "sss", "title3", "content1", IsPrivate.FRIEND_PUBLIC, "Y");
+        Record record4 = new Record(member2, "sss", "title4", "content1", IsPrivate.FRIEND_PUBLIC, "Y");
+        recordRepository.saveAll(Arrays.asList(record1, record2, record3, record4));
+
+        RecordSearchRequestDTO requestDTO = new RecordSearchRequestDTO(null, null, null);
+
+        // when & then
+        assertThatThrownBy(
+                () -> recordFollowService.retrieveRecord(member1.getSeq(), member2.getSeq(), requestDTO)
         ).isInstanceOf(ValidationException.class);
     }
 

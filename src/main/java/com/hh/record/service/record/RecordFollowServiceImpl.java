@@ -2,6 +2,7 @@ package com.hh.record.service.record;
 
 import com.hh.record.config.exception.errorCode.NotFoundException;
 import com.hh.record.dto.record.RecordResponseDTO;
+import com.hh.record.dto.record.RecordSearchRequestDTO;
 import com.hh.record.entity.Theme;
 import com.hh.record.entity.record.IsPrivate;
 import com.hh.record.entity.record.Record;
@@ -38,9 +39,9 @@ public class RecordFollowServiceImpl implements RecordFollowService {
 
     @Transactional
     @Override
-    public List<RecordResponseDTO> retrieveRecord(Long memberId, Long followId) {
+    public List<RecordResponseDTO> retrieveRecord(Long memberId, Long followId, RecordSearchRequestDTO requestDTO) {
         RecordServiceUtils.validateFollow(memberFollowRepository, memberId, followId);
-        return recordRepository.retrieveRecord(followId, null, null, null, Arrays.asList(IsPrivate.ALL_PUBLIC, IsPrivate.FRIEND_PUBLIC))
+        return recordRepository.retrieveRecord(followId, requestDTO.getCode(), requestDTO.getSearch(), requestDTO.getDate(), Arrays.asList(IsPrivate.ALL_PUBLIC, IsPrivate.FRIEND_PUBLIC))
                 .stream().map(RecordResponseDTO::of)
                 .collect(Collectors.toList());
     }
