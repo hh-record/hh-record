@@ -113,6 +113,26 @@ public class MemberServiceTest {
         ).isInstanceOf(ValidationException.class);
     }
 
+    @DisplayName("멤버의 정보 불러오")
+    @Test
+    void getMember() {
+        // given
+        Member member1 = new Member("admin1", "admin1", "test@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
+        Member member2 = new Member("admin1", "admin2", "test2@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
+        Member member3 = new Member("admin1", "admin3", "test2@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
+        Member member4 = new Member("admin1", "admin4", "test2@test.com", "1111", "1111", false, "test.com", MemberRole.USER, MemberProvider.LOCAL);
+        member1.followMember(member2);
+        member1.followMember(member3);
+        memberRepository.saveAll(Arrays.asList(member1, member2, member3, member4));
+
+        // when
+        MemberInfoResponse memberInfoResponse = memberService.selectMemberDTO(member1.getSeq());
+
+        // then
+        assertThat(memberInfoResponse.getFollowingCount()).isEqualTo(2);
+        assertThat(memberInfoResponse.getFollowerCount()).isEqualTo(0);
+    }
+
     @DisplayName("1이 2, 3 을 팔로우 했을 경우 1이 팔로잉한 경우는 2, 3")
     @Test
     void retrieveFollowingMember1() {

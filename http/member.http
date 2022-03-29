@@ -107,3 +107,7 @@ Content-Type: application/json
 GET {{host_api}}/hh-record/follower
 AUTH-TOKEN: {{AUTH-TOKEN}}
 Content-Type: application/json
+
+###
+GET {{host_api}}/hh-record/follow/member/2
+Content-Type: application/json
