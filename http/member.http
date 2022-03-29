@@ -97,3 +97,13 @@ Content-Type: application/json
 {
   "memberSeq": 2
 }
+
+### following한 회원들 정보 리스트
+GET {{host_api}}/hh-record/following
+AUTH-TOKEN: {{AUTH-TOKEN}}
+Content-Type: application/json
+
+### follower한 회원들 정보 리스트
+GET {{host_api}}/hh-record/follower
+AUTH-TOKEN: {{AUTH-TOKEN}}
+Content-Type: application/json

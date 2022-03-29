@@ -8,12 +8,16 @@ import com.hh.record.dto.member.request.UpdateMemberRequestDTO;
 import com.hh.record.dto.member.response.MemberInfoResponse;
 import com.hh.record.entity.member.Member;
 import com.hh.record.dto.member.request.InsertMemberRequestDTO;
+import com.hh.record.entity.member.MemberFollow;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.security.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +32,7 @@ public class MemberServiceImpl implements MemberService {
     public MemberInfoResponse selectMemberDTO(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new NotFoundException("존재하지 않는 회원입니다."));
-        return MemberInfoResponse.of(member);
+        return MemberInfoResponse.memberInstanceWithFollow(member);
     }
 
     @Transactional
@@ -123,6 +127,22 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new NotFoundException("존재하지 않는 회원입니다."));
         member.changeIsPrivate(isPrivate);
+    }
+
+    @Transactional
+    @Override
+    public List<MemberInfoResponse> retrieveFollowingMember(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 회원입니다."));
+        List<Member> memberList = member.getMemberList().stream().map(MemberFollow::getTargetMember).collect(Collectors.toList());
+        return memberList.stream().map(MemberInfoResponse::memberInstance).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MemberInfoResponse> retrieveFollowerMember(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 회원입니다."));
+        return member.getTargetMemberList().stream().map(MemberFollow::getMember).map(MemberInfoResponse::memberInstance).collect(Collectors.toList());
     }
 
 }
