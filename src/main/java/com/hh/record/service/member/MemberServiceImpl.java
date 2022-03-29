@@ -3,7 +3,6 @@ package com.hh.record.service.member;
 import com.hh.record.config.exception.errorCode.NotFoundException;
 import com.hh.record.config.exception.errorCode.ValidationException;
 import com.hh.record.dto.certification.CertificationRequestDTO;
-import com.hh.record.dto.member.MemberIsPrivateDTO;
 import com.hh.record.dto.member.request.SelectMemberIdRequestDTO;
 import com.hh.record.dto.member.request.UpdateMemberRequestDTO;
 import com.hh.record.dto.member.response.MemberInfoResponse;
