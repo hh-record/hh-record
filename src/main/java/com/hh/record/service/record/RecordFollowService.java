@@ -1,9 +1,9 @@
 package com.hh.record.service.record;
 
-import com.hh.record.dto.record.RecordWithThemResponseDto;
+import com.hh.record.dto.record.RecordResponseDTO;
 
 public interface RecordFollowService {
 
-    RecordWithThemResponseDto selectOneRecord(Long memberId, Long recordId);
+    RecordResponseDTO selectOneRecord(Long memberId, Long recordId);
 
 }
