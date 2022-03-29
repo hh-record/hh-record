@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/hh-record")
@@ -24,6 +26,13 @@ public class RecordFollowController {
     @PostMapping("/records/follow/{recordId}")
     public ApiResponse<RecordResponseDTO> selectOneRecord(@MemberId Long memberId, @PathVariable("recordId") Long recordId) {
         return ApiResponse.success(recordFollowService.selectOneRecord(memberId, recordId));
+    }
+
+    @ApiOperation("친구의 일기 리스트 조회 followId -> 팔로우 한 친구의 아이디")
+    @Auth
+    @PostMapping("/records/follow/list/{followId}")
+    public ApiResponse<List<RecordResponseDTO>> retrieveRecord(@MemberId Long memberId, @PathVariable Long followId) {
+        return ApiResponse.success(recordFollowService.retrieveRecord(memberId, followId));
     }
 
 }

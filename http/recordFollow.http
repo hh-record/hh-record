@@ -2,3 +2,8 @@
 POST {{host_api}}/hh-record/records/follow/1
 Content-Type: application/json
 AUTH-TOKEN: {{AUTH-TOKEN}}
+
+###
+POST {{host_api}}/hh-record/records/follow/list/2
+Content-Type: application/json
+AUTH-TOKEN: {{AUTH-TOKEN}}
