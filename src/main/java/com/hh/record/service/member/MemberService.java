@@ -6,6 +6,8 @@ import com.hh.record.dto.member.request.UpdateMemberRequestDTO;
 import com.hh.record.dto.member.response.MemberInfoResponse;
 import com.hh.record.dto.member.request.InsertMemberRequestDTO;
 
+import java.util.List;
+
 public interface MemberService {
 
     MemberInfoResponse selectMemberDTO(Long memberId);
@@ -31,4 +33,9 @@ public interface MemberService {
     void unfollowMember(Long memberSeq, Long memberId);
 
     void updateIsPrivateMember(Long memberId, boolean isPrivate);
+
+    List<MemberInfoResponse> retrieveFollowingMember(Long memberId);
+
+    List<MemberInfoResponse> retrieveFollowerMember(Long memberId);
+
 }

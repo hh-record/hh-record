@@ -30,7 +30,19 @@ public class MemberInfoResponse {
 
     private long followingCount;
 
-    public static MemberInfoResponse of(Member member) {
+    public static MemberInfoResponse memberInstance(Member member) {
+        return MemberInfoResponse.builder()
+                .seq(member.getSeq())
+                .id(member.getId())
+                .userName(member.getUserName())
+                .email(member.getEmail())
+                .phoneNumber(member.getPhoneNumber())
+                .isPrivate(member.getIsPrivate())
+                .profileImgUrl(member.getProfileImgUrl())
+                .build();
+    }
+
+    public static MemberInfoResponse memberInstanceWithFollow(Member member) {
         return MemberInfoResponse.builder()
                 .seq(member.getSeq())
                 .id(member.getId())
