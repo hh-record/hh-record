@@ -10,4 +10,5 @@ public interface RecordRepository extends JpaRepository<Record, Long>, RecordCus
     void deleteByMember_SeqAndSeq(Long memberId, Long seq);
 
     List<Record> findByMember_seq(Long memberId);
+
 }

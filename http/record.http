@@ -20,7 +20,8 @@ AUTH-TOKEN: {{AUTH-TOKEN}}
   "content": "content",
   "fileList": ["file1", "file2"],
   "hashTagList": ["좋음", "생일"],
-  "themeUse": "N"
+  "themeUse": "N",
+  "isPrivate": "PRIVATE"
 }
 
 ### 일기 수정
@@ -32,7 +33,8 @@ AUTH-TOKEN: {{AUTH-TOKEN}}
   "thumbnailUrl": "sss",
   "title": "title",
   "content": "content",
-  "themeUse": "N"
+  "themeUse": "N",
+  "isPrivate": "PRIVATE"
 }
 
 ### 일기 파일 수정

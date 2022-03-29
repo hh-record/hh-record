@@ -39,7 +39,7 @@ public class RecordController {
     @Auth
     @GetMapping("/records-calendar")
     public ApiResponse<List<LocalDate>> selectRecord(@MemberId Long memberId, @Valid RecordCalendarRequestDTO requestDTO) {
-        return ApiResponse.success(recordService.selectRecord(memberId, requestDTO));
+        return ApiResponse.success(recordService.selectRecordDate(memberId, requestDTO));
     }
 
     @ApiOperation("오늘의 주제 불러오기")

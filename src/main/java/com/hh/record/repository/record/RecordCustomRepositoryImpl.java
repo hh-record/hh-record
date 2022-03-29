@@ -52,7 +52,7 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
                 jpaQueryFactory.selectFrom(record)
                         .leftJoin(record.fileList, file).fetchJoin()
                         .where(
-                                record.member.seq.eq(memberId),
+                                eqMemberId(memberId),
                                 record.seq.eq(recordId)
                         )
                         .fetchOne()
@@ -118,6 +118,13 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
         Theme theme = themeRepository.findDateByMonthAndDay(date.getMonthValue(), date.getDayOfMonth())
                 .orElseThrow(() -> new NotFoundException("오늘은 주제가 없습니다."));
         return theme.getContent();
+    }
+
+    private BooleanExpression eqMemberId(Long memberId) {
+        if (memberId == null) {
+            return null;
+        }
+        return record.member.seq.eq(memberId);
     }
 
 }

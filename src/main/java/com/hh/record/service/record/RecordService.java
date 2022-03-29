@@ -14,7 +14,7 @@ public interface RecordService {
 
     RecordResponseDTO createRecord(Long memberId, CreateRecordRequestDto requestDto);
 
-    List<LocalDate> selectRecord(Long memberId, RecordCalendarRequestDTO requestDTO);
+    List<LocalDate> selectRecordDate(Long memberId, RecordCalendarRequestDTO requestDTO);
 
     RecordResponseDTO selectOneRecord(Long memberId, Long recordId);
 

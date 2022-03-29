@@ -52,7 +52,7 @@ public class RecordServiceImpl implements RecordService {
     }
 
     @Override
-    public List<LocalDate> selectRecord(Long memberId, RecordCalendarRequestDTO requestDTO) {
+    public List<LocalDate> selectRecordDate(Long memberId, RecordCalendarRequestDTO requestDTO) {
         return recordRepository.findAllByDates(memberId, requestDTO.getYear(), requestDTO.getMonth()).stream()
                 .map(LocalDateTime::toLocalDate).distinct().collect(Collectors.toList());
     }
