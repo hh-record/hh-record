@@ -7,6 +7,7 @@ import com.hh.record.config.exception.errorCode.ValidationException;
 import com.hh.record.controller.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -52,6 +53,14 @@ public class ExceptionControllerAdvice {
         log.error(e.getMessage(), e);
         log.error("e-----------------------" + e.getMessage());
         return ErrorResponse.error(e.getErrorCode(), e.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    protected ErrorResponse handleEnum(HttpMessageNotReadableException e) {
+        log.error(e.getMessage(), e);
+        log.error("e-----------------------" + e.getMessage());
+        return ErrorResponse.error(ErrorCode.ENUM_VALIDATION, e.getMessage());
     }
 
 }

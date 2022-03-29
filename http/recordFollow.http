@@ -1,0 +1,4 @@
+### 친구 일기 상세보기
+POST {{host_api}}/hh-record/records/follow/1
+Content-Type: application/json
+AUTH-TOKEN: {{AUTH-TOKEN}}
