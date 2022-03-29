@@ -138,6 +138,7 @@ public class MemberServiceImpl implements MemberService {
         return memberList.stream().map(MemberInfoResponse::memberInstance).collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
     public List<MemberInfoResponse> retrieveFollowerMember(Long memberId) {
         Member member = memberRepository.findById(memberId)
