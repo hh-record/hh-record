@@ -16,9 +16,6 @@ public class EmotionRequestDTO {
     private Long recordSeq;
 
     @NotBlank
-    private Long writeMemberSeq;
-
-    @NotBlank
     private Emotion emotion;
 
 }

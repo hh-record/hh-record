@@ -4,10 +4,13 @@ import com.hh.record.config.interceptor.Auth;
 import com.hh.record.config.interceptor.MemberId;
 import com.hh.record.controller.ApiResponse;
 import com.hh.record.dto.record.EmotionRequestDTO;
+import com.hh.record.dto.record.EmotionResponseDTO;
 import com.hh.record.service.record.RecordEmotionService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/hh-record")
@@ -20,7 +23,7 @@ public class EmotionController {
     @Auth
     @PostMapping("/emotion")
     public ApiResponse<String> insertEmotion(@MemberId Long memberId, @RequestBody EmotionRequestDTO requestDTO) {
-        emotionService.insertEmotion(memberId, requestDTO);
+        emotionService.insertEmotion(requestDTO);
         return ApiResponse.OK;
     }
 
@@ -30,6 +33,13 @@ public class EmotionController {
     public ApiResponse<String> deleteEmotion(@MemberId Long memberId, @RequestBody EmotionRequestDTO requestDTO) {
         emotionService.deleteEmotion(memberId, requestDTO);
         return ApiResponse.OK;
+    }
+
+    @ApiOperation("감정 일기 기준 조회")
+    @Auth
+    @GetMapping ("/emotion/{recordId}")
+    public ApiResponse<List<EmotionResponseDTO>> findByRecordEmotion(@MemberId Long memberId, @PathVariable Long recordId) {
+        return ApiResponse.success(emotionService.findByRecordEmotion(memberId, recordId));
     }
 
 }
