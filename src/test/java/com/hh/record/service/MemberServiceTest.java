@@ -113,7 +113,7 @@ public class MemberServiceTest {
         ).isInstanceOf(ValidationException.class);
     }
 
-    @DisplayName("멤버의 정보 불러오")
+    @DisplayName("멤버의 정보 불러오기")
     @Test
     void getMember() {
         // given

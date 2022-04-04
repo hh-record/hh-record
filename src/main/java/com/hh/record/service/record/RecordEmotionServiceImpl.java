@@ -25,28 +25,28 @@ public class RecordEmotionServiceImpl implements RecordEmotionService {
     private final RecordRepository recordRepository;
 
     @Override
-    public void insertEmotion(EmotionRequestDTO requestDTO) {
-        RecordEmotion emotion = validationCheckRequest(requestDTO);
+    public void insertEmotion(Long memberId, EmotionRequestDTO requestDTO) {
+        RecordEmotion emotion = validationCheckRequest(memberId, requestDTO);
         emotionRepository.save(emotion);
     }
 
     @Transactional
     @Override
-    public void deleteEmotion(Long memberId, EmotionRequestDTO requestDTO) {
-        RecordEmotion emotion = emotionRepository.findRecordEmotion(requestDTO.getRecordSeq(), memberId)
+    public void deleteEmotion(Long memberId, Long recordId) {
+        RecordEmotion emotion = emotionRepository.findRecordEmotion(recordId, memberId)
                 .orElseThrow(() -> new NotFoundException("존재하지 않은 감정입니다."));
         emotionRepository.delete(emotion);
     }
 
     @Override
-    public List<EmotionResponseDTO> findByRecordEmotion(Long memberId, Long recordId) {
+    public List<EmotionResponseDTO> findByRecordEmotion(Long recordId) {
         return emotionRepository.findByRecordEmotion(recordId);
     }
 
-    private RecordEmotion validationCheckRequest(EmotionRequestDTO requestDTO) {
+    private RecordEmotion validationCheckRequest(Long memberId, EmotionRequestDTO requestDTO) {
         Record record = recordRepository.findById(requestDTO.getRecordSeq())
                 .orElseThrow(() -> new NotFoundException("존재하지 않은 일기입니다."));
-        Member member = memberRepository.findById(record.getMember().getId())
+        Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new NotFoundException("존재하지 않은 멤버입니다."));
         emotionRepository.findRecordEmotion(record.getSeq(), member.getSeq())
                 .ifPresent(emotion ->  { throw new ValidationException("이미 해당 일기에 감정이 등록 되어있습니다."); });

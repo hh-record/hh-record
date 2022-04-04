@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -23,15 +24,15 @@ public class EmotionController {
     @Auth
     @PostMapping("/emotion")
     public ApiResponse<String> insertEmotion(@MemberId Long memberId, @RequestBody EmotionRequestDTO requestDTO) {
-        emotionService.insertEmotion(requestDTO);
+        emotionService.insertEmotion(memberId, requestDTO);
         return ApiResponse.OK;
     }
 
     @ApiOperation("감정 삭제")
     @Auth
-    @DeleteMapping ("/emotion")
-    public ApiResponse<String> deleteEmotion(@MemberId Long memberId, @RequestBody EmotionRequestDTO requestDTO) {
-        emotionService.deleteEmotion(memberId, requestDTO);
+    @DeleteMapping ("/emotion/{recordId}")
+    public ApiResponse<String> deleteEmotion(@MemberId Long memberId, @PathVariable Long recordId) {
+        emotionService.deleteEmotion(memberId, recordId);
         return ApiResponse.OK;
     }
 
@@ -39,7 +40,7 @@ public class EmotionController {
     @Auth
     @GetMapping ("/emotion/{recordId}")
     public ApiResponse<List<EmotionResponseDTO>> findByRecordEmotion(@MemberId Long memberId, @PathVariable Long recordId) {
-        return ApiResponse.success(emotionService.findByRecordEmotion(memberId, recordId));
+        return ApiResponse.success(emotionService.findByRecordEmotion(recordId));
     }
 
 }
