@@ -7,16 +7,12 @@ import com.hh.record.entity.member.MemberRole;
 import com.hh.record.repository.member.MemberRepository;
 import com.hh.record.service.social.SocialService;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import javax.transaction.Transactional;
-
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -59,12 +55,12 @@ public class SocialServiceTest {
 
         // then
         assertThat(results.size()).isEqualTo(4);
-        for (int i = 0; i < results.size(); i++) {
-            assertNotEquals(results.get(i).getSeq(), members.get(0).getSeq());
-            assertNotEquals(results.get(i).getSeq(), members.get(1).getSeq());
-            assertNotEquals(results.get(i).getSeq(), members.get(2).getSeq());
-            assertNotEquals(results.get(i).getSeq(), members.get(3).getSeq());
-            assertNotEquals(results.get(i).getSeq(), members.get(4).getSeq());
+        for (RecommendFriendsDTO result : results) {
+            assertNotEquals(result.getSeq(), members.get(0).getSeq());
+            assertNotEquals(result.getSeq(), members.get(1).getSeq());
+            assertNotEquals(result.getSeq(), members.get(2).getSeq());
+            assertNotEquals(result.getSeq(), members.get(3).getSeq());
+            assertNotEquals(result.getSeq(), members.get(4).getSeq());
         }
 
     }
