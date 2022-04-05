@@ -3,10 +3,8 @@ package com.hh.record.repository.member;
 import com.hh.record.dto.member.response.RecommendFriendsDTO;
 import com.hh.record.entity.member.Member;
 import com.querydsl.core.types.dsl.Expressions;
-import com.querydsl.core.types.dsl.NumberExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
-import org.springframework.util.MimeTypeUtils;
 
 import java.util.List;
 import java.util.Optional;
