@@ -1,12 +1,7 @@
 package com.hh.record.repository.record;
 
-import com.hh.record.config.exception.errorCode.NotFoundException;
-import com.hh.record.dto.record.RecordResponseDTO;
 import com.hh.record.entity.record.IsPrivate;
-import com.hh.record.entity.record.QRecord;
 import com.hh.record.entity.record.Record;
-import com.hh.record.entity.Theme;
-import com.hh.record.repository.theme.ThemeRepository;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
@@ -28,8 +23,6 @@ import static com.hh.record.entity.record.QRecordHashTag.recordHashTag;
 public class RecordCustomRepositoryImpl implements RecordCustomRepository {
 
     private final JPAQueryFactory jpaQueryFactory;
-
-    private final ThemeRepository themeRepository;
 
     /**
      * OneToMany에서는 다중 FetchJoin 불가.
@@ -76,18 +69,16 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
     }
 
     @Override
-    public RecordResponseDTO selectOneRecord(Long memberId, Long recordId) {
-        Record record = Optional.ofNullable(
-                jpaQueryFactory.selectFrom(QRecord.record)
-                        .leftJoin(QRecord.record.fileList, file).fetchJoin()
+    public Optional<Record> selectOneRecord(Long memberId, Long recordId) {
+        return Optional.ofNullable(
+                jpaQueryFactory.selectFrom(record)
+                        .leftJoin(record.fileList, file).fetchJoin()
                         .where(
-                                QRecord.record.member.seq.eq(memberId),
-                                QRecord.record.seq.eq(recordId)
+                                record.member.seq.eq(memberId),
+                                record.seq.eq(recordId)
                         )
                         .fetchOne()
-        ).orElseThrow(() -> new NotFoundException("일기가 존재하지 않습니다."));
-
-        return setRecordResponseDTO(record);
+        );
     }
 
     private BooleanBuilder searchBuilder(String code, String search) {
@@ -110,18 +101,6 @@ public class RecordCustomRepositoryImpl implements RecordCustomRepository {
         LocalDateTime start = LocalDateTime.of(date, LocalTime.MIN);
         LocalDateTime end = LocalDateTime.of(date, LocalTime.MAX);
         return record.regDate.goe(start).and(record.regDate.loe(end));
-    }
-
-    private RecordResponseDTO setRecordResponseDTO(Record record) {
-        RecordResponseDTO recordResponseDTO = RecordResponseDTO.of(record);
-        recordResponseDTO.setThemeContent(selectThemeContent(record.getRegDate()));
-        return recordResponseDTO;
-    }
-
-    private String selectThemeContent(LocalDateTime date) {
-        Theme theme = themeRepository.findDateByMonthAndDay(date.getMonthValue(), date.getDayOfMonth())
-                .orElseThrow(() -> new NotFoundException("오늘은 주제가 없습니다."));
-        return theme.getContent();
     }
 
     private BooleanExpression eqMemberId(Long memberId) {

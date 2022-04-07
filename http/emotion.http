@@ -1,0 +1,9 @@
+###
+POST {{host_api}}/hh-record/emotion
+Content-Type: application/json
+AUTH-TOKEN: {{AUTH-TOKEN}}
+
+{
+  "recordSeq": 1,
+  "emotion": "LIKE"
+}

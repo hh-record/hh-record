@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,7 @@ public class EmotionController {
     @ApiOperation("감정 추가")
     @Auth
     @PostMapping("/emotion")
-    public ApiResponse<String> insertEmotion(@MemberId Long memberId, @RequestBody EmotionRequestDTO requestDTO) {
+    public ApiResponse<String> insertEmotion(@MemberId Long memberId, @Valid @RequestBody EmotionRequestDTO requestDTO) {
         emotionService.insertEmotion(memberId, requestDTO);
         return ApiResponse.OK;
     }

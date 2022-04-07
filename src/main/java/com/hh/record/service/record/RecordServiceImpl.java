@@ -59,7 +59,11 @@ public class RecordServiceImpl implements RecordService {
 
     @Override
     public RecordResponseDTO selectOneRecord(Long memberId, Long recordId) {
-        return recordRepository.selectOneRecord(memberId, recordId);
+        Record record = recordRepository.selectOneRecord(memberId, recordId)
+                .orElseThrow(() -> new NotFoundException("존재하지 않는 일기입니다."));
+        LocalDateTime date = record.getRegDate();
+        Theme theme = RecordServiceUtils.findTheme(themeRepository, record.getThemeUse(), date);
+        return RecordResponseDTO.recordWithTheme(record, theme);
     }
 
     @Transactional

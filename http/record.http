@@ -8,6 +8,14 @@ GET {{host_api}}/hh-record/records-main
 Content-Type: application/json
 AUTH-TOKEN: {{AUTH-TOKEN}}
 
+### 일기 리스트
+POST {{host_api}}/hh-record/records-main
+Content-Type: application/json
+AUTH-TOKEN: {{AUTH-TOKEN}}
+
+{
+  "date": "2022-03-06"
+}
 
 ### 일기 생성
 POST {{host_api}}/hh-record/records

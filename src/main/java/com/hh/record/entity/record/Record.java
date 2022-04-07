@@ -30,6 +30,9 @@ public class Record extends BaseEntity {
     @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<RecordHashTag> recordHashTagList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "record", cascade = CascadeType.ALL, orphanRemoval = true)
+    private final List<RecordEmotion> recordEmotionList = new ArrayList<>();
+
     private String thumbnailUrl;
 
     private String title;
