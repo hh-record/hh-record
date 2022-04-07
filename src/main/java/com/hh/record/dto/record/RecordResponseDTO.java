@@ -41,6 +41,8 @@ public class RecordResponseDTO {
 
     private IsPrivate isPrivate;
 
+    private RecordEmotionDTO recordEmotion;
+
     public static RecordResponseDTO of(Record record) {
         return RecordResponseDTO.builder()
                 .record_seq(record.getSeq())
@@ -53,6 +55,7 @@ public class RecordResponseDTO {
                 .hashTagList(record.getRecordHashTagList().stream().map(RecordHashTag::getHashTag).collect(Collectors.toList()))
                 .themeUse(record.getThemeUse())
                 .isPrivate(record.getIsPrivate())
+                .recordEmotion(RecordEmotionDTO.of(record.getRecordEmotionList()))
                 .build();
     }
 
@@ -69,6 +72,7 @@ public class RecordResponseDTO {
                 .themeUse(record.getThemeUse())
                 .isPrivate(record.getIsPrivate())
                 .themeContent(theme == null ? null : theme.getContent())
+                .recordEmotion(RecordEmotionDTO.of(record.getRecordEmotionList()))
                 .build();
     }
 

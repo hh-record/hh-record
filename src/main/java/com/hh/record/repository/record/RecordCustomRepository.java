@@ -17,6 +17,6 @@ public interface RecordCustomRepository {
 
     List<LocalDateTime> findAllByDates(Long memberId, int year, int month);
 
-    RecordResponseDTO selectOneRecord(Long memberId, Long recordId);
+    Optional<Record> selectOneRecord(Long memberId, Long recordId);
 
 }
