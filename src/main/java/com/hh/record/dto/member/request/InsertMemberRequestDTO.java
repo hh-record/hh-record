@@ -1,5 +1,6 @@
 package com.hh.record.dto.member.request;
 
+import com.hh.record.entity.member.Book;
 import com.hh.record.entity.member.Member;
 import com.hh.record.entity.member.MemberProvider;
 import com.hh.record.entity.member.MemberRole;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 
 @Getter
@@ -35,9 +37,11 @@ public class InsertMemberRequestDTO {
 
     private String profileImgUrl;
 
+    private List<Book> books;
+
     public static InsertMemberRequestDTO testInstance(String id, String userName, String email, String phoneNumber,
                                                       String password, boolean isPrivate, String profileImgUrl) {
-        return new InsertMemberRequestDTO(id, userName, email, phoneNumber, password, isPrivate, profileImgUrl);
+        return new InsertMemberRequestDTO(id, userName, email, phoneNumber, password, isPrivate, profileImgUrl, null);
     }
 
     public Member dtoToEntity(String encodedPassword) {
@@ -51,6 +55,7 @@ public class InsertMemberRequestDTO {
                 .profileImgUrl(profileImgUrl)
                 .roleSet(MemberRole.USER)
                 .provider(MemberProvider.LOCAL)
+                .books(books)
                 .build();
     }
 

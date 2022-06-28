@@ -5,7 +5,10 @@ import com.hh.record.config.exception.errorCode.ValidationException;
 import com.hh.record.dto.auth.response.GoogleMemberInfoResponse;
 import com.hh.record.entity.BaseEntity;
 import com.hh.record.entity.medal.Medal;
+import com.vladmihalcea.hibernate.type.json.JsonType;
 import lombok.*;
+import org.hibernate.annotations.Type;
+import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -17,7 +20,7 @@ import java.util.Optional;
 @NoArgsConstructor
 @Builder
 @Getter
-@ToString
+@TypeDef(name = "json", typeClass = JsonType.class)
 public class Member extends BaseEntity {
 
     @Id
@@ -46,6 +49,10 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MemberProvider provider;
 
+    @Type(type = "json")
+    @Column(columnDefinition = "json")
+    private List<Book> books;
+
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private final List<Medal> medalList = new ArrayList<>();
 
@@ -57,7 +64,7 @@ public class Member extends BaseEntity {
 
     @Builder
     public Member(String id, String userName, String email, String password, String phoneNumber,
-                  boolean isPrivate, String profileImgUrl, MemberRole roleSet, MemberProvider provider) {
+                  boolean isPrivate, String profileImgUrl, MemberRole roleSet, MemberProvider provider, List<Book> books) {
         this.id = id;
         this.userName = userName;
         this.email = email;
@@ -67,6 +74,7 @@ public class Member extends BaseEntity {
         this.profileImgUrl = profileImgUrl;
         this.roleSet = roleSet;
         this.provider = provider;
+        this.books = books;
     }
 
     public void changeMemberInfo(String userName, String phoneNumber, boolean isPrivate, String profileImgUrl) {

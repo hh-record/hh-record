@@ -7,7 +7,17 @@ Content-Type: application/json
   "email": "tnswh2023@naver.com",
   "password": "1111",
   "userName": "test",
-  "phoneNumber": "ssss"
+  "phoneNumber": "ssss",
+  "books": [
+    {
+      "title": "sdf",
+      "price": 100
+    },
+    {
+      "title": "sdf",
+      "price": 100
+    }
+  ]
 }
 
 ### 로그인
